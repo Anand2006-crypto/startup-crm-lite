@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import leadRoutes from "./routes/leadRoutes.js";
+import cors from "cors";
 
 dotenv.config();
 
@@ -11,8 +12,17 @@ connectDB();
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://startup-crm-lite-silk.vercel.app",
+    ],
+    credentials: true,
+  })
+);
 app.use(express.json());
+
 app.use("/api/leads", leadRoutes);
 
 app.get("/", (req, res) => {
