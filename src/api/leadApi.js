@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: "https://startup-crm-lite-production-4fcf.up.railway.app/api",
 });
 
 // Get all leads
