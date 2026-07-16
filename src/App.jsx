@@ -307,8 +307,19 @@ color: darkMode ? "white" : "#111827",
 {page === "profile" && (
   <Profile darkMode={darkMode} />
 )}
+<div
+  style={{
+    textAlign: "center",
+    padding: "15px",
+    color: darkMode ? "#9ca3af" : "#6b7280",
+    fontSize: "14px",
+  }}
+>
+  © 2026 Startup CRM Lite | Developed by Anand
+</div>
     </div>
   </div>
+  
 );
 }
 
