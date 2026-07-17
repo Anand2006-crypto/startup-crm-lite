@@ -1,6 +1,8 @@
 import { useState } from "react"
+import { getTheme } from "../../theme/tokens"
 
 function AddLeadForm({ onAdd, onClose, darkMode }) {
+  const t = getTheme(darkMode)
   const [name, setName] = useState("")
   const [company, setCompany] = useState("")
   const [phone, setPhone] = useState("")
@@ -38,11 +40,14 @@ function AddLeadForm({ onAdd, onClose, darkMode }) {
     display: "block",
     width: "100%",
     marginBottom: "14px",
-    padding: "12px",
+    padding: "12px 14px",
     borderRadius: "10px",
-    border: "1px solid #d1d5db",
+    border: `1px solid ${t.border}`,
     boxSizing: "border-box",
-    outline: "none"
+    outline: "none",
+    background: t.inputBg,
+    color: t.text,
+    fontSize: "15px",
   }
 
   return (
@@ -53,7 +58,7 @@ function AddLeadForm({ onAdd, onClose, darkMode }) {
         left: 0,
         width: "100%",
         height: "100%",
-        background: "rgba(0,0,0,0.45)",
+        background: t.overlay,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -63,11 +68,12 @@ function AddLeadForm({ onAdd, onClose, darkMode }) {
       <div
         style={{
           width: "500px",
-          padding: "25px",
-          borderRadius: "18px",
-          background: darkMode ? "#1f2937" : "white",
-          color: darkMode ? "white" : "black",
-          boxShadow: "0 12px 40px rgba(0,0,0,0.25)"
+          padding: "28px",
+          borderRadius: "16px",
+          background: t.surface,
+          color: t.text,
+          boxShadow: t.shadowLg,
+          border: `1px solid ${t.border}`,
         }}
       >
         <div
@@ -81,7 +87,7 @@ function AddLeadForm({ onAdd, onClose, darkMode }) {
           <h2
             style={{
               margin: 0,
-              color: darkMode ? "white" : "#111827"
+              color: t.text
             }}
           >
             Add New Lead
@@ -94,7 +100,7 @@ function AddLeadForm({ onAdd, onClose, darkMode }) {
               background: "transparent",
               fontSize: "22px",
               cursor: "pointer",
-              color: darkMode ? "white" : "black"
+              color: t.textMuted
             }}
           >
             ✕
@@ -163,14 +169,15 @@ function AddLeadForm({ onAdd, onClose, darkMode }) {
           onClick={handleAdd}
           style={{
             width: "100%",
-            background: "#2563eb",
-            color: "white",
+            background: t.accent,
+            color: t.textInverse,
             border: "none",
             padding: "14px",
             borderRadius: "12px",
             cursor: "pointer",
-            fontWeight: "bold",
-            fontSize: "16px"
+            fontWeight: "600",
+            fontSize: "16px",
+            boxShadow: t.shadow,
           }}
         >
           Add Lead

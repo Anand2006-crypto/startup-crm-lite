@@ -1,5 +1,7 @@
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
+import { getTheme, getStatusStyle } from "../../theme/tokens";
+
 function LeadList({
   leads,
   search,
@@ -9,6 +11,8 @@ function LeadList({
   onView,
   darkMode
 }) {
+  const t = getTheme(darkMode)
+
  const filteredLeads = leads.filter((lead) => {
   const searchText = search.toLowerCase();
 
@@ -23,27 +27,6 @@ function LeadList({
   return matchesSearch && matchesFilter;
 });
 
-  function getStatusStyle(status) {
-  if (status === "New")
-    return { background: "#dbeafe", color: "#2563eb" }
-
-  if (status === "Contacted")
-    return { background: "#e0f2fe", color: "#0284c7" }
-
-  if (status === "Qualified")
-    return { background: "#ede9fe", color: "#7c3aed" }
-
-  if (status === "Proposal")
-    return { background: "#fef3c7", color: "#d97706" }
-
-  if (status === "Won")
-    return { background: "#dcfce7", color: "#16a34a" }
-
-  if (status === "Lost")
-    return { background: "#fee2e2", color: "#dc2626" }
-
-  return { background: "#f3f4f6", color: "#374151" }
-}
 const exportToExcel = () => {
   const worksheet = XLSX.utils.json_to_sheet(leads);
 
@@ -78,10 +61,10 @@ const exportToExcel = () => {
       style={{
         margin: "20px",
         overflowX: "auto",
-        background: "white",
+        background: t.surfaceElevated,
         borderRadius: "16px",
-        boxShadow: "0 4px 15px rgba(0,0,0,0.08)",
-        border: "1px solid #e5e7eb"
+        boxShadow: t.shadow,
+        border: `1px solid ${t.border}`
       }}
     >
       <table
@@ -93,8 +76,8 @@ const exportToExcel = () => {
         <thead>
           <tr
             style={{
-              background: "#f9fafb",
-              color: "#6b7280",
+              background: t.tableHeaderBg,
+              color: t.textMuted,
               textAlign: "left"
             }}
           >
@@ -114,26 +97,26 @@ const exportToExcel = () => {
             <tr
               key={lead._id}
               style={{
-                borderTop: "1px solid #f3f4f6"
+                borderTop: `1px solid ${t.tableRowBorder}`
               }}
             >
-              <td style={{ padding: "16px", color: "#111827" }}>
+              <td style={{ padding: "16px", color: t.text, fontWeight: "500" }}>
                 {lead.name}
               </td>
 
-              <td style={{ padding: "16px", color: "#6b7280" }}>
+              <td style={{ padding: "16px", color: t.textMuted }}>
                 {lead.company}
               </td>
 
-              <td style={{ padding: "16px", color: "#6b7280" }}>
+              <td style={{ padding: "16px", color: t.textMuted }}>
                 {lead.phone}
               </td>
 
-              <td style={{ padding: "16px", color: "#6b7280" }}>
+              <td style={{ padding: "16px", color: t.textMuted }}>
                 {lead.email}
               </td>
 
-              <td style={{ padding: "16px", color: "#6b7280" }}>
+              <td style={{ padding: "16px", color: t.textMuted }}>
                 {lead.source}
               </td>
 
@@ -147,7 +130,7 @@ const exportToExcel = () => {
       border: "none",
       fontWeight: "600",
       cursor: "pointer",
-      ...getStatusStyle(lead.status)
+      ...getStatusStyle(lead.status, darkMode)
     }}
   >
     <option value="New">New</option>
@@ -159,7 +142,7 @@ const exportToExcel = () => {
   </select>
 </td>
 
-              <td style={{ padding: "16px", color: "#6b7280" }}>
+              <td style={{ padding: "16px", color: t.textMuted }}>
                 {new Date(lead.dateAdded).toLocaleDateString("en-GB", {
   day: "2-digit",
   month: "short",
@@ -172,12 +155,14 @@ const exportToExcel = () => {
   onClick={() => onView(lead)}
   style={{
     border: "none",
-    background: "#2563eb",
-    color: "white",
-    padding: "6px 12px",
+    background: t.accent,
+    color: t.textInverse,
+    padding: "6px 14px",
     borderRadius: "8px",
     cursor: "pointer",
-    marginRight: "8px"
+    marginRight: "8px",
+    fontWeight: "600",
+    fontSize: "13px",
   }}
 >
   View

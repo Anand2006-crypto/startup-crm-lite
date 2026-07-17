@@ -4,7 +4,10 @@ import {
   FiDollarSign,
   FiTrendingUp
 } from "react-icons/fi"
+import { getTheme, getStatusStyle } from "../../theme/tokens"
+
 function Dashboard({ leads, darkMode }) {
+  const t = getTheme(darkMode)
   const totalLeads = leads.length
 
   const wonDeals = leads.filter(
@@ -20,29 +23,27 @@ const revenue = wonDeals * 25000
 
   return (
     <div style={{ padding: "10px" }}>
-      {/* Heading */}
       <div style={{ marginBottom: "30px" }}>
         <h1
   style={{
     margin: 0,
     fontSize: "48px",
     fontWeight: "700",
-    color: darkMode ? "white" : "#111827"
+    color: t.text
   }}
 >
   Dashboard Management
 </h1>
 
-        <p style={{ color: "#6b7280", marginTop: "10px" }}>
+        <p style={{ color: t.textMuted, marginTop: "10px" }}>
           Overview of your sales performance
         </p>
       </div>
 
-      {/* Cards */}
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
+          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
           gap: "20px"
         }}
       >
@@ -50,44 +51,45 @@ const revenue = wonDeals * 25000
   title="Total Leads"
   value={totalLeads}
   icon={<FiUsers size={28} />}
-  color="linear-gradient(135deg,#2563eb,#3b82f6)"
+  color={t.cardGradients.blue}
 />
 
 <Card
   title="Won Deals"
   value={wonDeals}
   icon={<FiAward size={28} />}
-  color="linear-gradient(135deg,#16a34a,#22c55e)"
+  color={t.cardGradients.green}
 />
 
 <Card
   title="Revenue"
   value={`₹${revenue}`}
   icon={<FiDollarSign size={28} />}
-  color="linear-gradient(135deg,#f59e0b,#fbbf24)"
+  color={t.cardGradients.amber}
 />
 
 <Card
   title="Conversion Rate"
   value={`${conversionRate}%`}
   icon={<FiTrendingUp size={28} />}
-  color="linear-gradient(135deg,#9333ea,#7c3aed)"
+  color={t.cardGradients.slate}
 />
       </div>
 
-      {/* Recent Leads */}
       <div
         style={{
           marginTop: "35px",
-          background: darkMode ? "#1f2937" : "white",
+          background: t.surface,
           padding: "24px",
-          borderRadius: "18px",
-          boxShadow: "0 8px 24px rgba(0,0,0,0.08)"
+          borderRadius: "16px",
+          boxShadow: t.shadowMd,
+          border: `1px solid ${t.border}`,
         }}
       >
        <h2
   style={{
-    color: darkMode ? "white" : "#111827"
+    color: t.text,
+    marginBottom: "4px",
   }}
 >
   Recent Leads
@@ -100,7 +102,7 @@ const revenue = wonDeals * 25000
   }}
 >
   <thead>
-    <tr style={{ color: "#6b7280" }}>
+    <tr style={{ color: t.textMuted }}>
       <th style={{ textAlign: "left", padding: "12px" }}>Lead</th>
       <th style={{ textAlign: "left", padding: "12px" }}>Company</th>
       <th style={{ textAlign: "left", padding: "12px" }}>Source</th>
@@ -109,11 +111,13 @@ const revenue = wonDeals * 25000
   </thead>
 
   <tbody>
-    {leads.slice(0, 5).map((lead) => (
+    {leads.slice(0, 5).map((lead) => {
+      const statusStyle = getStatusStyle(lead.status, darkMode)
+      return (
       <tr
         key={lead.id}
         style={{
-          borderTop: "1px solid #e5e7eb"
+          borderTop: `1px solid ${t.tableRowBorder}`
         }}
       >
         <td style={{ padding: "15px" }}>
@@ -129,8 +133,8 @@ const revenue = wonDeals * 25000
                 width: "42px",
                 height: "42px",
                 borderRadius: "50%",
-                background: "#2563eb",
-                color: "white",
+                background: t.accent,
+                color: t.textInverse,
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
@@ -141,14 +145,14 @@ const revenue = wonDeals * 25000
             </div>
 
             <div>
-              <div style={{ fontWeight: "600" }}>
+              <div style={{ fontWeight: "600", color: t.text }}>
                 {lead.name}
               </div>
 
               <div
                 style={{
                   fontSize: "13px",
-                  color: "#6b7280"
+                  color: t.textMuted
                 }}
               >
                 {lead.email}
@@ -160,7 +164,7 @@ const revenue = wonDeals * 25000
         <td
   style={{
     padding: "15px",
-    color: darkMode ? "white" : "#111827"
+    color: t.text
   }}
 >
   {lead.company}
@@ -169,7 +173,7 @@ const revenue = wonDeals * 25000
 <td
   style={{
     padding: "15px",
-    color: darkMode ? "white" : "#111827"
+    color: t.text
   }}
 >
   {lead.source}
@@ -180,38 +184,17 @@ const revenue = wonDeals * 25000
             style={{
               padding: "6px 14px",
               borderRadius: "20px",
-              background:
-                lead.status === "Won"
-                  ? "#dcfce7"
-                  : lead.status === "Proposal"
-                  ? "#fef3c7"
-                  : lead.status === "Qualified"
-                  ? "#ede9fe"
-                  : lead.status === "Contacted"
-                  ? "#dbeafe"
-                  : lead.status === "Lost"
-                  ? "#fee2e2"
-                  : "#e5e7eb",
-              color:
-                lead.status === "Won"
-                  ? "#16a34a"
-                  : lead.status === "Proposal"
-                  ? "#d97706"
-                  : lead.status === "Qualified"
-                  ? "#7c3aed"
-                  : lead.status === "Contacted"
-                  ? "#2563eb"
-                  : lead.status === "Lost"
-                  ? "#dc2626"
-                  : "#374151",
-              fontWeight: "600"
+              background: statusStyle.background,
+              color: statusStyle.color,
+              fontWeight: "600",
+              fontSize: "13px",
             }}
           >
             {lead.status}
           </span>
         </td>
       </tr>
-    ))}
+    )})}
   </tbody>
 </table>
       </div>
@@ -224,13 +207,13 @@ function Card({ title, value, color, icon }) {
     <div
       style={{
         background: color,
-        color: "white",
+        color: "#FFFFFF",
         padding: "22px",
-        borderRadius: "20px",
+        borderRadius: "16px",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        boxShadow: "0 10px 25px rgba(0,0,0,0.25)"
+        boxShadow: "0 10px 25px rgba(0,0,0,0.2)"
       }}
     >
       <div>
@@ -258,8 +241,8 @@ function Card({ title, value, color, icon }) {
         style={{
           width: "60px",
           height: "60px",
-          borderRadius: "16px",
-          background: "rgba(255,255,255,0.20)",
+          borderRadius: "14px",
+          background: "rgba(255,255,255,0.18)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center"

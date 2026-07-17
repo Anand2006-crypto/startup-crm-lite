@@ -26,9 +26,11 @@ import {
 Line,
 
 } from "recharts"
+import { getTheme } from "../../theme/tokens"
 
 
 function Analytics({ leads, darkMode }) {
+  const t = getTheme(darkMode)
   const [range, setRange] = useState("30")
   const [fromDate, setFromDate] = useState("")
   const [toDate, setToDate] = useState("")
@@ -194,20 +196,14 @@ console
   },
 ];
 
-  const COLORS = [
-  "#2563eb",
-  "#22c55e",
-  "#f59e0b",
-  "#9333ea",
-  "#06b6d4",
-  "#ec4899"
-]
+  const COLORS = t.chartColors
 
   const boxStyle = {
-    background: "rgba(31,41,55,0.92)",
-    padding: "8px",
-    borderRadius: "12px",
-    boxShadow: "0 8px 30px rgba(0,0,0,0.35)"
+    background: t.surface,
+    padding: "16px",
+    borderRadius: "14px",
+    boxShadow: t.shadowMd,
+    border: `1px solid ${t.border}`,
   }
   
 
@@ -276,22 +272,22 @@ const progressData = [
   {
     name: "New",
     value: data[0].count,
-    color: "#2563eb",
+    color: t.funnelColors[0],
   },
   {
     name: "Contacted",
     value: data[1].count,
-    color: "#06b6d4",
+    color: t.funnelColors[1],
   },
   {
     name: "Qualified",
     value: data[2].count,
-    color: "#9333ea",
+    color: t.funnelColors[2],
   },
   {
     name: "Won",
     value: data[4].count,
-    color: "#22c55e",
+    color: t.funnelColors[4],
   },
 ];
 const monthlyGoal = 50;
@@ -314,7 +310,7 @@ const goalProgress = Math.min(
         <div>
          <h1
   style={{
-    color: darkMode ? "white" : "#000000",
+    color: t.text,
     margin: 0,
     fontSize: "38px",
     fontWeight: "700"
@@ -325,7 +321,7 @@ const goalProgress = Math.min(
 
           <p
   style={{
-    color: darkMode ? "#d1d5db" : "#6b7280",
+    color: t.textMuted,
     marginTop: "10px"
   }}
 >
@@ -352,10 +348,11 @@ const goalProgress = Math.min(
               style={{
                 padding: "8px 14px",
                 borderRadius: "10px",
-                border: "none",
+                border: `1px solid ${t.border}`,
                 cursor: "pointer",
-                background: range === item ? "#2563eb" : "#1f2937",
-                color: "white"
+                background: range === item ? t.accent : t.surface,
+                color: range === item ? t.textInverse : t.text,
+                fontWeight: range === item ? "600" : "500",
               }}
             >
               {item === "custom" ? "Custom Range" : `Last ${item} Days`}
@@ -369,16 +366,28 @@ const goalProgress = Math.min(
               type="date"
               value={fromDate}
               onChange={(e) => setFromDate(e.target.value)}
-              style={{ padding: "8px", borderRadius: "8px" }}
+              style={{
+                padding: "8px",
+                borderRadius: "8px",
+                border: `1px solid ${t.border}`,
+                background: t.inputBg,
+                color: t.text,
+              }}
             />
 
-            <span style={{ color: "white" }}>to</span>
+            <span style={{ color: t.textMuted }}>to</span>
 
             <input
               type="date"
               value={toDate}
               onChange={(e) => setToDate(e.target.value)}
-              style={{ padding: "8px", borderRadius: "8px" }}
+              style={{
+                padding: "8px",
+                borderRadius: "8px",
+                border: `1px solid ${t.border}`,
+                background: t.inputBg,
+                color: t.text,
+              }}
             />
           </div>
         )}
@@ -387,7 +396,7 @@ const goalProgress = Math.min(
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(6, minmax(90px,1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
           gap: "10px",
           marginBottom: "16px"
         }}
@@ -395,14 +404,14 @@ const goalProgress = Math.min(
        <Card
   title="Total Leads"
   value={leads.length}
-  color="linear-gradient(135deg,#2563eb,#60a5fa)"
+  color={t.cardGradients.blue}
   icon={<FiUsers size={30} />}
 />
 
 <Card
   title="Qualified"
   value={leads.filter(l => l.status === "Qualified").length}
-  color="linear-gradient(135deg,#9333ea,#c084fc)"
+  color={t.cardGradients.slate}
   icon={<FiTarget size={30} />}
 />
 
@@ -412,7 +421,7 @@ const goalProgress = Math.min(
     (leads.filter(l => l.status === "Won").length /
       (leads.length || 1)) * 100
   )}%`}
-  color="linear-gradient(135deg,#059669,#34d399)"
+  color={t.cardGradients.green}
   icon={<FiTrendingUp size={30} />}
 />
 
@@ -423,21 +432,21 @@ const goalProgress = Math.min(
       l => l.status !== "Won" && l.status !== "Lost"
     ).length
   }
-  color="linear-gradient(135deg,#f59e0b,#fbbf24)"
+  color={t.cardGradients.amber}
   icon={<FiDollarSign size={30} />}
 />
 
 <Card
   title="Revenue"
   value={leads.filter(l => l.status === "Won").length}
-  color="linear-gradient(135deg,#0891b2,#67e8f9)"
+  color={t.cardGradients.cyan}
   icon={<FiAward size={30} />}
 />
 
 <Card
   title="Cycle"
   value="28d"
-  color="linear-gradient(135deg,#ef4444,#fb7185)"
+  color={t.cardGradients.red}
   icon={<FiClock size={30} />}
 />
       </div>
@@ -445,14 +454,14 @@ const goalProgress = Math.min(
      <div
   style={{
     display: "grid",
-    gridTemplateColumns: "1fr 1fr",
-    gap: "8px"
+    gridTemplateColumns: "repeat(2, 1fr)",
+    gap: "12px"
   }}
 >
   
   <div style={boxStyle}> 
     
-          <h3 style={{ color: "#93c5fd", fontSize: "14px" }}>
+          <h3 style={{ color: t.panelTitle, fontSize: "14px", margin: "0 0 12px" }}>
             Lead Distribution
           </h3>
           
@@ -485,7 +494,7 @@ const goalProgress = Math.min(
           y="48%"
           textAnchor="middle"
           dominantBaseline="middle"
-          fill="white"
+          fill={t.text}
           fontSize="26"
           fontWeight="bold"
         >
@@ -497,7 +506,7 @@ const goalProgress = Math.min(
           y="62%"
           textAnchor="middle"
           dominantBaseline="middle"
-          fill="#9ca3af"
+          fill={t.textMuted}
           fontSize="12"
         >
           Total
@@ -517,7 +526,7 @@ const goalProgress = Math.min(
           justifyContent: "space-between",
           alignItems: "center",
           marginBottom: "12px",
-          color: "white",
+          color: t.text,
           fontSize: "14px",
         }}
       >
@@ -547,7 +556,7 @@ const goalProgress = Math.min(
         </div>
         
         <div style={boxStyle}>
-  <h3 style={{ color: "white", marginBottom: "15px" }}>
+  <h3 style={{ color: t.panelTitle, marginBottom: "15px", fontSize: "14px" }}>
     Sales Conversion Funnel
   </h3>
 
@@ -558,7 +567,6 @@ const goalProgress = Math.min(
       alignItems: "center"
     }}
   >
-    {/* Funnel */}
     <div
   style={{
     width: "190px",
@@ -568,18 +576,18 @@ const goalProgress = Math.min(
     gap: "4px"
   }}
 >
-  <div style={funnelLayer("180px", "24px", "#2563eb")} />
-  <div style={funnelLayer("155px", "22px", "#06b6d4")} />
-  <div style={funnelLayer("130px", "20px", "#9333ea")} />
-  <div style={funnelLayer("105px", "18px", "#f59e0b")} />
-  <div style={funnelLayer("80px", "16px", "#22c55e")} />
-  <div style={funnelLayer("55px", "14px", "#ef4444")} />
+  {t.funnelColors.map((color, i) => {
+    const widths = ["180px", "155px", "130px", "105px", "80px", "55px"]
+    const heights = ["24px", "22px", "20px", "18px", "16px", "14px"]
+    return (
+      <div key={i} style={funnelLayer(widths[i], heights[i], color)} />
+    )
+  })}
 </div>
 
-    {/* Legend */}
     <div
   style={{
-    color: "white",
+    color: t.text,
     fontSize: "12px",
     lineHeight: "1.9"
   }}
@@ -598,8 +606,8 @@ const goalProgress = Math.min(
 <div style={boxStyle}>
   <h3
     style={{
-      color: "#93c5fd",
-      fontSize: "18px",
+      color: t.panelTitle,
+      fontSize: "16px",
       marginBottom: "20px",
       textAlign: "center",
     }}
@@ -617,7 +625,7 @@ const goalProgress = Math.min(
         bottom: 10,
       }}
     >
-      <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+      <CartesianGrid strokeDasharray="3 3" stroke={t.chartGrid} />
 
      <XAxis
   dataKey="status"
@@ -625,14 +633,14 @@ const goalProgress = Math.min(
   angle={-20}
   textAnchor="end"
   height={60}
-  tick={{ fontSize: 12 }}
-  stroke="#9ca3af"
+  tick={{ fontSize: 12, fill: t.chartAxis }}
+  stroke={t.chartAxis}
 />
         
-      
 
       <YAxis
-        stroke="#9ca3af"
+        stroke={t.chartAxis}
+        tick={{ fill: t.chartAxis }}
         allowDecimals={false}
       />
 
@@ -656,15 +664,15 @@ const goalProgress = Math.min(
         
 
         <div style={boxStyle}>
-          <h3 style={{ color: "#93c5fd", fontSize: "14px" }}>
+          <h3 style={{ color: t.panelTitle, fontSize: "14px", margin: "0 0 12px" }}>
             Monthly Leads
           </h3>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={monthlyData}>
-              <XAxis dataKey="month" />
-              <YAxis />
+              <XAxis dataKey="month" stroke={t.chartAxis} tick={{ fill: t.chartAxis }} />
+              <YAxis stroke={t.chartAxis} tick={{ fill: t.chartAxis }} />
               <Tooltip />
-              <Bar dataKey="leads" fill="#22c55e" />
+              <Bar dataKey="leads" fill={t.success} radius={[6, 6, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -672,8 +680,9 @@ const goalProgress = Math.min(
        <div style={boxStyle}>
   <h3
     style={{
-      color: "#93c5fd",
-      fontSize: "14px"
+      color: t.panelTitle,
+      fontSize: "14px",
+      margin: "0 0 12px",
     }}
   >
     Revenue Growth
@@ -683,32 +692,32 @@ const goalProgress = Math.min(
     <AreaChart data={monthlyData}>
       <defs>
         <linearGradient id="revenueGradient" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="5%" stopColor="#22c55e" stopOpacity={0.8} />
-          <stop offset="95%" stopColor="#22c55e" stopOpacity={0.05} />
+          <stop offset="5%" stopColor={t.accent} stopOpacity={0.8} />
+          <stop offset="95%" stopColor={t.accent} stopOpacity={0.05} />
         </linearGradient>
       </defs>
 
-      <CartesianGrid stroke="#374151" strokeDasharray="3 3" />
+      <CartesianGrid stroke={t.chartGrid} strokeDasharray="3 3" />
 
-      <XAxis dataKey="month" stroke="#9ca3af" />
-      <YAxis stroke="#9ca3af" />
+      <XAxis dataKey="month" stroke={t.chartAxis} tick={{ fill: t.chartAxis }} />
+      <YAxis stroke={t.chartAxis} tick={{ fill: t.chartAxis }} />
 
       <Tooltip />
 
       <Area
         type="monotone"
         dataKey="revenue"
-        stroke="#22c55e"
+        stroke={t.accent}
         strokeWidth={3}
         fill="url(#revenueGradient)"
-        dot={{ r: 5 }}
+        dot={{ r: 5, fill: t.accent }}
         activeDot={{ r: 7 }}
       />
     </AreaChart>
   </ResponsiveContainer>
 </div>
         <div style={boxStyle}>
-          <h3 style={{ color: "#93c5fd", fontSize: "14px" }}>
+          <h3 style={{ color: t.panelTitle, fontSize: "14px", margin: "0 0 12px" }}>
             Weekly Performance
           </h3>
           <ResponsiveContainer width="100%" height={180}>
@@ -723,20 +732,22 @@ const goalProgress = Math.min(
   >
     <defs>
       <linearGradient id="weeklyGradient" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="5%" stopColor="#22c55e" stopOpacity={0.7} />
-        <stop offset="95%" stopColor="#22c55e" stopOpacity={0.05} />
+        <stop offset="5%" stopColor={t.success} stopOpacity={0.7} />
+        <stop offset="95%" stopColor={t.success} stopOpacity={0.05} />
       </linearGradient>
     </defs>
 
-    <CartesianGrid stroke="#374151" strokeDasharray="3 3" />
+    <CartesianGrid stroke={t.chartGrid} strokeDasharray="3 3" />
 
     <XAxis
       dataKey="day"
-      stroke="#9ca3af"
+      stroke={t.chartAxis}
+      tick={{ fill: t.chartAxis }}
     />
 
     <YAxis
-      stroke="#9ca3af"
+      stroke={t.chartAxis}
+      tick={{ fill: t.chartAxis }}
     />
 
     <Tooltip />
@@ -744,10 +755,10 @@ const goalProgress = Math.min(
     <Area
       type="monotone"
       dataKey="value"
-      stroke="#22c55e"
+      stroke={t.success}
       strokeWidth={3}
       fill="url(#weeklyGradient)"
-      dot={{ r: 4, fill: "#22c55e" }}
+      dot={{ r: 4, fill: t.success }}
       activeDot={{ r: 6 }}
     />
   </AreaChart>
@@ -756,23 +767,23 @@ const goalProgress = Math.min(
 
         
                 <div style={boxStyle}>
-          <h3 style={{ color: "#93c5fd", fontSize: "14px" }}>
+          <h3 style={{ color: t.panelTitle, fontSize: "14px", margin: "0 0 12px" }}>
             Daily Activity
           </h3>
-          <Progress name="Calls" width="75%" color="#2563eb" />
-          <Progress name="Meetings" width="55%" color="#22c55e" />
-          <Progress name="Follow-ups" width="85%" color="#f59e0b" />
+          <Progress name="Calls" width="75%" color={t.accent} track={t.progressTrack} text={t.text} />
+          <Progress name="Meetings" width="55%" color={t.success} track={t.progressTrack} text={t.text} />
+          <Progress name="Follow-ups" width="85%" color={t.warning} track={t.progressTrack} text={t.text} />
         </div>
         <div style={boxStyle}>
-          <h3 style={{ color: "#93c5fd", fontSize: "14px" }}>
+          <h3 style={{ color: t.panelTitle, fontSize: "14px", margin: "0 0 12px" }}>
             Team Target
           </h3>
 
-          <p style={{ color: "white", fontSize: "12px" }}>Completed: 82%</p>
+          <p style={{ color: t.text, fontSize: "12px" }}>Completed: 82%</p>
 
           <div
             style={{
-              background: "#374151",
+              background: t.progressTrack,
               height: "14px",
               borderRadius: "10px"
             }}
@@ -781,7 +792,7 @@ const goalProgress = Math.min(
               style={{
                 width: "82%",
                 height: "14px",
-                background: "#3b82f6",
+                background: t.accent,
                 borderRadius: "10px"
               }}
             />
@@ -789,13 +800,13 @@ const goalProgress = Math.min(
         </div>
 
         <div style={boxStyle}>
-          <h4 style={{ color: "#93c5fd", fontSize: "14px" }}>
+          <h4 style={{ color: t.panelTitle, fontSize: "14px", margin: "0 0 12px" }}>
             Top Performers
           </h4>
          {topPerformers.map((item, index) => (
   <p
     key={item.name}
-    style={{ color: "white", fontSize: "15px" }}
+    style={{ color: t.text, fontSize: "15px" }}
   >
     {index === 0
       ? "🥇"
@@ -812,7 +823,7 @@ const goalProgress = Math.min(
         
 
        <div style={boxStyle}>
-  <h3 style={{ color: "#93c5fd", marginBottom: "10px" }}>
+  <h3 style={{ color: t.panelTitle, marginBottom: "10px", fontSize: "14px" }}>
     Top Lead Sources
   </h3>
 
@@ -827,18 +838,20 @@ const goalProgress = Math.min(
       bottom: 10
     }}
   >
-    <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+    <CartesianGrid strokeDasharray="3 3" stroke={t.chartGrid} />
 
     <XAxis
       type="number"
-      stroke="#9ca3af"
+      stroke={t.chartAxis}
+      tick={{ fill: t.chartAxis }}
       allowDecimals={false}
     />
 
     <YAxis
       type="category"
       dataKey="source"
-      stroke="#9ca3af"
+      stroke={t.chartAxis}
+      tick={{ fill: t.chartAxis }}
       width={100}
       interval={0}
     />
@@ -847,7 +860,7 @@ const goalProgress = Math.min(
 
     <Bar
       dataKey="count"
-      fill="#3b82f6"
+      fill={t.chartAccent}
       radius={[0, 8, 8, 0]}
     />
   </BarChart>
@@ -857,8 +870,9 @@ const goalProgress = Math.min(
 <div style={boxStyle}>
   <h2
     style={{
-      color: "#93c5fd",
-      marginBottom: "5px"
+      color: t.panelTitle,
+      marginBottom: "5px",
+      fontSize: "16px",
     }}
   >
     Recent Activities
@@ -870,9 +884,9 @@ const goalProgress = Math.min(
       style={{
         display: "flex",
         justifyContent: "space-between",
-        padding: "1px 0",
-        borderBottom: "2px solid #374151",
-        color: "white"
+        padding: "8px 0",
+        borderBottom: `1px solid ${t.border}`,
+        color: t.text
       }}
     >
       <div>
@@ -881,8 +895,8 @@ const goalProgress = Math.min(
         <p
           style={{
             margin: "2px 0",
-            color: "#9ca3af",
-            fontSize: "10px"
+            color: t.textMuted,
+            fontSize: "12px"
           }}
         >
           {lead.company}
@@ -891,10 +905,12 @@ const goalProgress = Math.min(
 
       <span
         style={{
-          background: "#2563eb",
-          padding: "10px 10px",
+          background: t.accent,
+          color: t.textInverse,
+          padding: "6px 12px",
           borderRadius: "10px",
-          fontSize: "12px"
+          fontSize: "12px",
+          fontWeight: "600",
         }}
       >
         {lead.status}
@@ -905,34 +921,36 @@ const goalProgress = Math.min(
 <div style={boxStyle}>
   <h2
     style={{
-      color: "#93c5fd",
-      marginBottom: "45px",
+      color: t.panelTitle,
+      marginBottom: "20px",
+      fontSize: "16px",
     }}
   >
     Pending Tasks
   </h2>
 
-  <p style={{ color: "white", fontSize: "16px" }}>
+  <p style={{ color: t.text, fontSize: "15px", marginBottom: "8px" }}>
     📞 Call 5 clients
   </p>
 
-  <p style={{ color: "white", fontSize: "16px" }}>
+  <p style={{ color: t.text, fontSize: "15px", marginBottom: "8px" }}>
     📧 Send 3 emails
   </p>
 
-  <p style={{ color: "white", fontSize: "16px" }}>
+  <p style={{ color: t.text, fontSize: "15px", marginBottom: "8px" }}>
     🤝 Arrange 2 meetings
   </p>
 
-  <p style={{ color: "white", fontSize: "16px" }}>
+  <p style={{ color: t.text, fontSize: "15px" }}>
     📝 Update proposals
   </p>
 </div>
 <div style={boxStyle}>
   <h3
     style={{
-      color: "#93c5fd",
+      color: t.panelTitle,
       marginBottom: "15px",
+      fontSize: "14px",
     }}
   >
     Notifications
@@ -942,9 +960,9 @@ const goalProgress = Math.min(
     <div
       key={index}
       style={{
-        color: "white",
+        color: t.text,
         padding: "10px 0",
-        borderBottom: "1px solid #374151",
+        borderBottom: `1px solid ${t.border}`,
         fontSize: "14px",
       }}
     >
@@ -955,8 +973,9 @@ const goalProgress = Math.min(
 <div style={boxStyle}>
   <h3
     style={{
-      color: "#93c5fd",
+      color: t.panelTitle,
       marginBottom: "15px",
+      fontSize: "14px",
     }}
   >
     Calendar
@@ -964,7 +983,7 @@ const goalProgress = Math.min(
 
   <div
     style={{
-      color: "white",
+      color: t.text,
       textAlign: "center",
       padding: "20px 0",
     }}
@@ -991,8 +1010,9 @@ const goalProgress = Math.min(
 <div style={boxStyle}>
   <h3
     style={{
-      color: "#93c5fd",
+      color: t.panelTitle,
       marginBottom: "15px",
+      fontSize: "14px",
     }}
   >
     Quick Stats
@@ -1000,7 +1020,7 @@ const goalProgress = Math.min(
 
   <div
     style={{
-      color: "white",
+      color: t.text,
       fontSize: "14px",
       lineHeight: "2",
     }}
@@ -1017,8 +1037,9 @@ const goalProgress = Math.min(
 <div style={boxStyle}>
   <h3
     style={{
-      color: "#93c5fd",
+      color: t.panelTitle,
       marginBottom: "15px",
+      fontSize: "14px",
     }}
   >
     Performance Score
@@ -1027,7 +1048,7 @@ const goalProgress = Math.min(
   <div
     style={{
       textAlign: "center",
-      color: "white",
+      color: t.text,
     }}
   >
     <h1
@@ -1036,10 +1057,10 @@ const goalProgress = Math.min(
         margin: "10px 0",
         color:
           performanceScore >= 75
-            ? "#22c55e"
+            ? t.success
             : performanceScore >= 50
-            ? "#f59e0b"
-            : "#ef4444",
+            ? t.warning
+            : t.danger,
       }}
     >
       {performanceScore}%
@@ -1049,7 +1070,7 @@ const goalProgress = Math.min(
       style={{
         width: "100%",
         height: "12px",
-        background: "#374151",
+        background: t.progressTrack,
         borderRadius: "10px",
       }}
     >
@@ -1057,7 +1078,7 @@ const goalProgress = Math.min(
         style={{
           width: `${performanceScore}%`,
           height: "12px",
-          background: "#22c55e",
+          background: t.success,
           borderRadius: "10px",
         }}
       />
@@ -1067,8 +1088,9 @@ const goalProgress = Math.min(
 <div style={boxStyle}>
   <h3
     style={{
-      color: "#93c5fd",
+      color: t.panelTitle,
       marginBottom: "15px",
+      fontSize: "14px",
     }}
   >
     Lead Progress
@@ -1080,7 +1102,7 @@ const goalProgress = Math.min(
         style={{
           display: "flex",
           justifyContent: "space-between",
-          color: "white",
+          color: t.text,
           marginBottom: "5px",
           fontSize: "13px",
         }}
@@ -1093,7 +1115,7 @@ const goalProgress = Math.min(
         style={{
           width: "100%",
           height: "10px",
-          background: "#374151",
+          background: t.progressTrack,
           borderRadius: "10px",
         }}
       >
@@ -1112,8 +1134,9 @@ const goalProgress = Math.min(
 <div style={boxStyle}>
   <h3
     style={{
-      color: "#93c5fd",
+      color: t.panelTitle,
       marginBottom: "15px",
+      fontSize: "14px",
     }}
   >
     Monthly Goal
@@ -1121,7 +1144,7 @@ const goalProgress = Math.min(
 
   <div
     style={{
-      color: "white",
+      color: t.text,
       marginBottom: "10px",
       fontSize: "14px",
     }}
@@ -1133,7 +1156,7 @@ const goalProgress = Math.min(
     style={{
       width: "100%",
       height: "14px",
-      background: "#374151",
+      background: t.progressTrack,
       borderRadius: "10px",
       overflow: "hidden",
     }}
@@ -1144,8 +1167,8 @@ const goalProgress = Math.min(
         height: "14px",
         background:
           goalProgress >= 100
-            ? "#22c55e"
-            : "#3b82f6",
+            ? t.success
+            : t.accent,
         borderRadius: "10px",
       }}
     />
@@ -1153,7 +1176,7 @@ const goalProgress = Math.min(
 
   <p
     style={{
-      color: "#d1d5db",
+      color: t.textMuted,
       marginTop: "10px",
       fontSize: "12px",
     }}
@@ -1177,11 +1200,11 @@ function Card({ title, value, color, icon }) {
         borderRadius: "14px",
         padding: "10px 12px",
         height: "82px",
-        color: "white",
+        color: "#FFFFFF",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        boxShadow: "0 6px 15px rgba(0,0,0,.25)"
+        boxShadow: "0 6px 15px rgba(0,0,0,.2)"
       }}
     >
       <div>
@@ -1209,7 +1232,7 @@ function Card({ title, value, color, icon }) {
           style={{
             margin: 0,
             fontSize: "9px",
-            color: "#dcfce7"
+            opacity: 0.75
           }}
         >
           ▲ 16.8%
@@ -1242,13 +1265,13 @@ function funnelLayer(width, height, color) {
   }
 }
 
-function Progress({ name, width, color }) {
+function Progress({ name, width, color, track, text }) {
   return (
     <div style={{ marginBottom: "10px" }}>
-      <p style={{ color: "white", fontSize: "12px" }}>{name}</p>
+      <p style={{ color: text, fontSize: "12px" }}>{name}</p>
       <div
         style={{
-          background: "#374151",
+          background: track,
           height: "12px",
           borderRadius: "10px"
         }}

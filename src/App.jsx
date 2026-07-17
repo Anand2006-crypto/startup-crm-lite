@@ -11,6 +11,7 @@ import { useState } from "react";
 import Profile from "./pages/Profile";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
+import { getTheme } from "./theme/tokens";
 
 import {
   getLeads,
@@ -31,6 +32,13 @@ function App() {
  const [isLoggedIn, setIsLoggedIn] = useState(
   localStorage.getItem("isLoggedIn") === "true"
 );
+
+  const t = getTheme(darkMode)
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", darkMode ? "dark" : "light")
+  }, [darkMode])
+
  const handleLogout = () => {
   localStorage.removeItem("isLoggedIn");
   setIsLoggedIn(false);
@@ -126,10 +134,10 @@ const exportToExcel = () => {
    <div
   style={{
     flex: 1,
-   background: darkMode ? "#0f172a" : "#f3f4f6",
-color: darkMode ? "white" : "#111827",
+    background: t.background,
+    color: t.text,
     minHeight: "100vh",
-    padding: "30px"
+    padding: "28px",
   }}
 >
      <Navbar
@@ -164,7 +172,7 @@ color: darkMode ? "white" : "#111827",
       margin: 0,
       fontSize: "50px",
       fontWeight: "700",
-      color: darkMode ? "white" : "#111827",
+      color: t.text,
       lineHeight: "1.1"
     }}
   >
@@ -174,7 +182,7 @@ color: darkMode ? "white" : "#111827",
   <p
     style={{
       marginTop: "12px",
-      color: darkMode ? "#d1d5db" : "#6b7280",
+      color: t.textMuted,
       fontSize: "16px"
     }}
   >
@@ -186,12 +194,14 @@ color: darkMode ? "white" : "#111827",
   <button
   onClick={() => setShowForm(true)}
   style={{
-    background: "#2563eb",
-    color: "white",
+    background: t.accent,
+    color: t.textInverse,
     border: "none",
     padding: "12px 20px",
     borderRadius: "10px",
-    cursor: "pointer"
+    cursor: "pointer",
+    fontWeight: "600",
+    boxShadow: t.shadow,
   }}
 >
   + Add Lead
@@ -204,7 +214,7 @@ color: darkMode ? "white" : "#111827",
     margin: "20px",
     display: "flex",
     alignItems: "center",
-    gap: "10px",
+    gap: "12px",
   }}
 >
   <input
@@ -216,22 +226,25 @@ color: darkMode ? "white" : "#111827",
       padding: "14px 18px",
       width: "420px",
       borderRadius: "12px",
-      border: "1px solid #d1d5db",
+      border: `1px solid ${t.border}`,
       outline: "none",
       fontSize: "15px",
-      background: darkMode ? "#1f2937" : "white",
+      background: t.inputBg,
+      color: t.text,
     }}
   />
 
   <button
     onClick={exportToExcel}
     style={{
-      background: "#22c55e",
-      color: "white",
+      background: t.exportBtn,
+      color: "#FFFFFF",
       border: "none",
       padding: "12px 18px",
       borderRadius: "10px",
       cursor: "pointer",
+      fontWeight: "600",
+      boxShadow: t.shadow,
     }}
   >
     📊 Export Excel
@@ -260,10 +273,12 @@ color: darkMode ? "white" : "#111827",
       style={{
         padding: "10px 18px",
         borderRadius: "999px",
-        border: "1px solid #e5e7eb",
-        background: filter === item ? "#2563eb" : "white",
-        color: filter === item ? "white" : "#6b7280",
-        cursor: "pointer"
+        border: `1px solid ${t.filterBorder}`,
+        background: filter === item ? t.filterActive : t.filterInactive,
+        color: filter === item ? t.textInverse : t.filterInactiveText,
+        cursor: "pointer",
+        fontWeight: filter === item ? "600" : "500",
+        transition: "all 0.2s ease",
       }}
     >
       {item}
@@ -272,7 +287,6 @@ color: darkMode ? "white" : "#111827",
 </div>
 
     
-      
 
 {showForm && (
   <AddLeadForm
@@ -311,7 +325,7 @@ color: darkMode ? "white" : "#111827",
   style={{
     textAlign: "center",
     padding: "15px",
-    color: darkMode ? "#9ca3af" : "#6b7280",
+    color: t.textMuted,
     fontSize: "14px",
   }}
 >

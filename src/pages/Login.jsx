@@ -1,11 +1,64 @@
 import { useState } from "react";
 import Register from "./Register";
+import { getTheme } from "../theme/tokens";
 
 function Login({ setIsLoggedIn }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showRegister, setShowRegister] = useState(false);
   const [showForgot, setShowForgot] = useState(false);
+
+  const t = getTheme(true)
+
+  const cardStyle = {
+    width: "380px",
+    background: t.surface,
+    padding: "32px",
+    borderRadius: "16px",
+    boxShadow: t.shadowLg,
+    border: `1px solid ${t.border}`,
+  }
+
+  const inputStyle = {
+    width: "100%",
+    padding: "12px 14px",
+    marginBottom: "14px",
+    borderRadius: "10px",
+    border: `1px solid ${t.border}`,
+    background: t.inputBg,
+    color: t.text,
+    fontSize: "15px",
+  }
+
+  const btnStyle = {
+    width: "100%",
+    padding: "13px",
+    border: "none",
+    borderRadius: "10px",
+    background: t.accent,
+    color: t.textInverse,
+    fontSize: "16px",
+    cursor: "pointer",
+    fontWeight: "600",
+    boxShadow: t.shadow,
+  }
+
+  const linkStyle = {
+    color: t.accent,
+    textAlign: "center",
+    marginTop: "15px",
+    cursor: "pointer",
+    fontSize: "14px",
+  }
+
+  const pageStyle = {
+    height: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    background: t.loginGradient,
+  }
+
 if (showRegister) {
   return (
     <Register setShowRegister={setShowRegister} />
@@ -13,27 +66,13 @@ if (showRegister) {
 }
 if (showForgot) {
   return (
-    <div
-      style={{
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        background: "#0f172a",
-      }}
-    >
-      <div
-        style={{
-          width: "350px",
-          background: "#1f2937",
-          padding: "30px",
-          borderRadius: "15px",
-        }}
-      >
+    <div style={pageStyle}>
+      <div style={cardStyle}>
         <h2
           style={{
-            color: "white",
+            color: t.text,
             textAlign: "center",
+            marginBottom: "8px",
           }}
         >
           Forgot Password
@@ -41,7 +80,7 @@ if (showForgot) {
 
        <p
   style={{
-    color: "#d1d5db",
+    color: t.textMuted,
     textAlign: "center",
   }}
 >
@@ -50,7 +89,7 @@ if (showForgot) {
 
 <p
   style={{
-    color: "#60a5fa",
+    color: t.accent,
     textAlign: "center",
     fontWeight: "bold",
     marginTop: "10px",
@@ -61,15 +100,7 @@ if (showForgot) {
 
         <button
           onClick={() => setShowForgot(false)}
-          style={{
-            width: "100%",
-            padding: "12px",
-            border: "none",
-            borderRadius: "10px",
-            background: "#2563eb",
-            color: "white",
-            marginTop: "15px",
-          }}
+          style={{ ...btnStyle, marginTop: "15px" }}
         >
           Back to Login
         </button>
@@ -78,30 +109,14 @@ if (showForgot) {
   );
 }
   return (
-    <div
-      style={{
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        background:
-          "linear-gradient(135deg, #0f172a, #1e293b)",
-      }}
-    >
-      <div
-        style={{
-          width: "350px",
-          background: "#1f2937",
-          padding: "30px",
-          borderRadius: "15px",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.4)",
-        }}
-      >
+    <div style={pageStyle}>
+      <div style={cardStyle}>
         <h1
           style={{
-            color: "white",
+            color: t.text,
             textAlign: "center",
-            marginBottom: "25px",
+            marginBottom: "28px",
+            fontSize: "28px",
           }}
         >
           Startup CRM Lite
@@ -112,13 +127,7 @@ if (showForgot) {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          style={{
-            width: "100%",
-            padding: "12px",
-            marginBottom: "15px",
-            borderRadius: "10px",
-            border: "none",
-          }}
+          style={inputStyle}
         />
 
         <input
@@ -126,13 +135,7 @@ if (showForgot) {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          style={{
-            width: "100%",
-            padding: "12px",
-            marginBottom: "20px",
-            borderRadius: "10px",
-            border: "none",
-          }}
+          style={{ ...inputStyle, marginBottom: "20px" }}
         />
 
         <button
@@ -152,38 +155,19 @@ if (showForgot) {
     alert("Invalid email or password");
   }
 }}
-  style={{
-    width: "100%",
-    padding: "12px",
-    border: "none",
-    borderRadius: "10px",
-    background: "#2563eb",
-    color: "white",
-    fontSize: "16px",
-    cursor: "pointer",
-  }}
+  style={btnStyle}
 >
   Login
 </button>
 <p
   onClick={() => setShowForgot(true)}
-  style={{
-    color: "#60a5fa",
-    textAlign: "center",
-    marginTop: "15px",
-    cursor: "pointer",
-  }}
+  style={linkStyle}
 >
   Forgot Password?
 </p>
 <p
   onClick={() => setShowRegister(true)}
-  style={{
-    color: "#60a5fa",
-    textAlign: "center",
-    marginTop: "15px",
-    cursor: "pointer",
-  }}
+  style={linkStyle}
 >
   Create new account
 </p>

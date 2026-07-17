@@ -5,80 +5,99 @@ import {
   FiSun,
   FiMoon
 } from "react-icons/fi"
+import { getTheme } from "../../theme/tokens"
 
 function Navbar({ page, darkMode, setDarkMode }) {
+  const t = getTheme(darkMode)
+
   let title = ""
-let subtitle = ""
+  let subtitle = ""
 
-if (page === "dashboard") {
-  title = "Dashboard ManagementS"
-  subtitle = "Overview of your sales performance"
-}
+  if (page === "dashboard") {
+    title = "Dashboard ManagementS"
+    subtitle = "Overview of your sales performance"
+  }
 
-if (page === "leads") {
-  title = "Lead Management"
-  subtitle = "Manage and track all your sales leads"
-}
+  if (page === "leads") {
+    title = "Lead Management"
+    subtitle = "Manage and track all your sales leads"
+  }
 
-if (page === "analytics") {
-  title = "Analytics Overview"
-  subtitle = "Track sales performance and revenue"
-}
+  if (page === "analytics") {
+    title = "Analytics Overview"
+    subtitle = "Track sales performance and revenue"
+  }
+
+  const iconBox = {
+    width: "44px",
+    height: "44px",
+    borderRadius: "12px",
+    background: t.iconBoxBg,
+    color: t.secondary,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    cursor: "pointer",
+    border: `1px solid ${t.border}`,
+    transition: "background 0.2s ease",
+  }
+
   return (
     <div
       style={{
         height: "78px",
-        background: darkMode ? "#111827" : "white",
-        borderRadius: "18px",
+        background: t.navbarBg,
+        borderRadius: "16px",
         padding: "0 24px",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
-        marginBottom: "20px"
+        boxShadow: t.shadowMd,
+        marginBottom: "20px",
+        border: `1px solid ${t.border}`,
       }}
     >
-      {/* Left */}
       <div>
         <h2
-  style={{
-    margin: 0,
-    color: darkMode ? "white" : "#111827"
-  }}
->
-  {title}
-</h2>
+          style={{
+            margin: 0,
+            color: t.text,
+            fontSize: "20px",
+          }}
+        >
+          {title}
+        </h2>
 
-<p
-  style={{
-    margin: 0,
-    color: "#9ca3af"
-  }}
->
-  {subtitle}
-</p>
+        <p
+          style={{
+            margin: 0,
+            color: t.textMuted,
+            fontSize: "14px",
+          }}
+        >
+          {subtitle}
+        </p>
       </div>
 
-      {/* Right */}
       <div
         style={{
           display: "flex",
           alignItems: "center",
-          gap: "15px"
+          gap: "14px",
         }}
       >
-        {/* Search */}
         <div
           style={{
             display: "flex",
             alignItems: "center",
-            background: darkMode ? "#1f2937" : "#f3f4f6",
+            background: t.inputBg,
             padding: "10px 15px",
             borderRadius: "12px",
-            width: "260px"
+            width: "260px",
+            border: `1px solid ${t.border}`,
           }}
         >
-          <FiSearch color="#6b7280" />
+          <FiSearch color={t.secondary} />
 
           <input
             placeholder="Search..."
@@ -88,30 +107,30 @@ if (page === "analytics") {
               background: "transparent",
               marginLeft: "10px",
               width: "100%",
-              color: darkMode ? "white" : "black"
+              color: t.text,
             }}
           />
         </div>
 
-        {/* Add Button */}
         <button
           style={{
-            background: "#2563eb",
-            color: "white",
+            background: t.accent,
+            color: t.textInverse,
             border: "none",
             borderRadius: "12px",
             padding: "12px 18px",
             display: "flex",
             alignItems: "center",
             gap: "8px",
-            cursor: "pointer"
+            cursor: "pointer",
+            fontWeight: "600",
+            boxShadow: t.shadow,
           }}
         >
           <FiPlus />
           New Lead
         </button>
 
-        {/* Theme */}
         <div
           onClick={() => setDarkMode(!darkMode)}
           style={iconBox}
@@ -119,24 +138,23 @@ if (page === "analytics") {
           {darkMode ? <FiSun /> : <FiMoon />}
         </div>
 
-        {/* Notification */}
         <div style={iconBox}>
           <FiBell />
         </div>
 
-        {/* Avatar */}
         <div
           style={{
-            width: "45px",
-            height: "45px",
+            width: "44px",
+            height: "44px",
             borderRadius: "50%",
-            background: "#2563eb",
-            color: "white",
+            background: t.accent,
+            color: t.textInverse,
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             fontWeight: "bold",
-            fontSize: "18px"
+            fontSize: "18px",
+            boxShadow: t.shadow,
           }}
         >
           A
@@ -144,17 +162,6 @@ if (page === "analytics") {
       </div>
     </div>
   )
-}
-
-const iconBox = {
-  width: "45px",
-  height: "45px",
-  borderRadius: "12px",
-  background: "#e5e7eb",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  cursor: "pointer"
 }
 
 export default Navbar

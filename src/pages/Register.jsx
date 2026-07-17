@@ -1,9 +1,32 @@
 import { useState } from "react";
+import { getTheme } from "../theme/tokens";
 
 function Register({ setShowRegister }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const t = getTheme(true)
+
+  const cardStyle = {
+    width: "380px",
+    background: t.surface,
+    padding: "32px",
+    borderRadius: "16px",
+    boxShadow: t.shadowLg,
+    border: `1px solid ${t.border}`,
+  }
+
+  const inputStyle = {
+    width: "100%",
+    padding: "12px 14px",
+    marginBottom: "14px",
+    borderRadius: "10px",
+    border: `1px solid ${t.border}`,
+    background: t.inputBg,
+    color: t.text,
+    fontSize: "15px",
+  }
 
   const handleRegister = () => {
     localStorage.setItem(
@@ -26,23 +49,16 @@ function Register({ setShowRegister }) {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        background:
-          "linear-gradient(135deg,#0f172a,#1e293b)",
+        background: t.loginGradient,
       }}
     >
-      <div
-        style={{
-          width: "350px",
-          background: "#1f2937",
-          padding: "30px",
-          borderRadius: "15px",
-        }}
-      >
+      <div style={cardStyle}>
         <h1
           style={{
-            color: "white",
+            color: t.text,
             textAlign: "center",
-            marginBottom: "20px",
+            marginBottom: "24px",
+            fontSize: "28px",
           }}
         >
           Register
@@ -52,24 +68,14 @@ function Register({ setShowRegister }) {
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          style={{
-            width: "100%",
-            padding: "12px",
-            marginBottom: "15px",
-            borderRadius: "10px",
-          }}
+          style={inputStyle}
         />
 
         <input
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          style={{
-            width: "100%",
-            padding: "12px",
-            marginBottom: "15px",
-            borderRadius: "10px",
-          }}
+          style={inputStyle}
         />
 
         <input
@@ -77,23 +83,21 @@ function Register({ setShowRegister }) {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          style={{
-            width: "100%",
-            padding: "12px",
-            marginBottom: "20px",
-            borderRadius: "10px",
-          }}
+          style={{ ...inputStyle, marginBottom: "20px" }}
         />
 
         <button
           onClick={handleRegister}
           style={{
             width: "100%",
-            padding: "12px",
+            padding: "13px",
             border: "none",
             borderRadius: "10px",
-            background: "#2563eb",
-            color: "white",
+            background: t.accent,
+            color: t.textInverse,
+            fontWeight: "600",
+            cursor: "pointer",
+            boxShadow: t.shadow,
           }}
         >
           Register

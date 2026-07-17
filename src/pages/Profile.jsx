@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { getTheme } from "../theme/tokens";
 
 
 function Profile({ darkMode }) {
@@ -13,19 +14,32 @@ const [profileImage, setProfileImage] = useState(
     "https://i.pravatar.cc/150"
 );
 
+  const t = getTheme(darkMode)
+
+  const inputStyle = {
+    width: "100%",
+    padding: "12px 14px",
+    marginBottom: "14px",
+    borderRadius: "10px",
+    border: `1px solid ${t.border}`,
+    background: t.inputBg,
+    color: t.text,
+    fontSize: "15px",
+  }
+
   return (
   <div
     style={{
-      padding: "80px",
-      color: "white",
+      padding: "60px",
+      color: t.text,
     }}
   >
       
       <h1
   style={{
-    color: darkMode ? "white" : "black",
+    color: t.text,
     fontSize: "32px",
-    marginBottom: "20px"
+    marginBottom: "24px",
   }}
 >
   👤 My Profile
@@ -37,7 +51,8 @@ const [profileImage, setProfileImage] = useState(
       width: "120px",
       height: "120px",
       borderRadius: "50%",
-      border: "4px solid #2563eb",
+      border: `4px solid ${t.accent}`,
+      boxShadow: t.shadowMd,
     }}
   />
  <input
@@ -63,57 +78,45 @@ const [profileImage, setProfileImage] = useState(
   }}
   style={{
   marginTop: "15px",
-  color: darkMode ? "white" : "black",
-  background: darkMode ? "#1f2937" : "#ffffff",
-  padding: "8px",
-  borderRadius: "8px",
+  color: t.text,
+  background: t.surface,
+  padding: "10px",
+  borderRadius: "10px",
+  border: `1px solid ${t.border}`,
 }}
 />
 
 
       <div
   style={{
-    marginTop: "20px",
-    background: "#1f2937",
-    padding: "25px",
-    borderRadius: "15px",
-    width: "400px",
+    marginTop: "24px",
+    background: t.surface,
+    padding: "28px",
+    borderRadius: "16px",
+    width: "420px",
+    border: `1px solid ${t.border}`,
+    boxShadow: t.shadow,
   }}
 >
         <input
   type="text"
  value={name}
 onChange={(e) => setName(e.target.value)}
-  style={{
-    width: "100%",
-    padding: "10px",
-    marginBottom: "15px",
-    borderRadius: "8px",
-  }}
+  style={inputStyle}
 />
 
 <input
   type="email"
  value={email}
 onChange={(e) => setEmail(e.target.value)}
-  style={{
-    width: "100%",
-    padding: "10px",
-    marginBottom: "15px",
-    borderRadius: "8px",
-  }}
+  style={inputStyle}
 />
 
 <input
   type="password"
  value={password}
 onChange={(e) => setPassword(e.target.value)}
-  style={{
-    width: "100%",
-    padding: "10px",
-    marginBottom: "15px",
-    borderRadius: "8px",
-  }}
+  style={inputStyle}
 />
 
 <button
@@ -131,12 +134,14 @@ onChange={(e) => setPassword(e.target.value)}
   }}
   style={{
     width: "100%",
-    padding: "12px",
+    padding: "13px",
     border: "none",
     borderRadius: "10px",
-    background: "#2563eb",
-    color: "white",
+    background: t.accent,
+    color: t.textInverse,
     cursor: "pointer",
+    fontWeight: "600",
+    boxShadow: t.shadow,
   }}
 >
   Save Changes

@@ -7,6 +7,7 @@ import {
   FiHelpCircle,
   FiLogOut
 } from "react-icons/fi"
+import { getTheme } from "../../theme/tokens"
 
 function Sidebar({
   setPage,
@@ -15,24 +16,20 @@ function Sidebar({
   setDarkMode,
   handleLogout
 }) {
+  const t = getTheme(darkMode)
+
   const menuStyle = (menu) => ({
     display: "flex",
     alignItems: "center",
     gap: "14px",
-    padding: "15px 18px",
+    padding: "14px 18px",
     cursor: "pointer",
-    background:
-      page === menu
-        ? "linear-gradient(135deg,#2563eb,#3b82f6)"
-        : "transparent",
-    borderRadius: "14px",
-    marginBottom: "12px",
-    color: page === menu ? "white" : "#cbd5e1",
-    boxShadow:
-      page === menu
-        ? "0 8px 20px rgba(37,99,235,0.35)"
-        : "none",
-    transition: "0.3s"
+    background: page === menu ? t.sidebarActive : "transparent",
+    borderRadius: "12px",
+    marginBottom: "10px",
+    color: page === menu ? t.textInverse : t.sidebarText,
+    boxShadow: page === menu ? t.sidebarActiveShadow : "none",
+    transition: "all 0.25s ease",
   })
 
   return (
@@ -40,22 +37,22 @@ function Sidebar({
       style={{
         width: "260px",
         height: "100vh",
-        background: "linear-gradient(180deg,#0f172a,#111827)",
-        color: "white",
+        background: t.sidebarBg,
+        color: t.text,
         padding: "24px",
         display: "flex",
         flexDirection: "column",
         boxSizing: "border-box",
-        borderRight: "1px solid rgba(255,255,255,0.08)"
+        borderRight: `1px solid ${t.sidebarBorder}`,
       }}
     >
-      {/* Logo */}
-      <div style={{ marginBottom: "40px" }}>
+      <div style={{ marginBottom: "36px" }}>
         <h2
           style={{
             margin: 0,
-            color: "#60a5fa",
-            fontWeight: "700"
+            color: t.accent,
+            fontWeight: "700",
+            fontSize: "20px",
           }}
         >
           🚀 Startup CRM Lite
@@ -64,17 +61,15 @@ function Sidebar({
         <p
           style={{
             marginTop: "6px",
-            color: "#94a3b8",
-            fontSize: "13px"
+            color: t.sidebarMuted,
+            fontSize: "13px",
           }}
         >
           Sales Management
         </p>
       </div>
 
-      {/* Menu */}
       <div>
-
         <div
           onClick={() => setPage("dashboard")}
           style={menuStyle("dashboard")}
@@ -98,18 +93,16 @@ function Sidebar({
           <FiBarChart2 size={20} />
           <span>Analytics</span>
         </div>
-
       </div>
 
-      {/* Bottom Section */}
       <div style={{ marginTop: "auto" }}>
-
         <div
           style={{
-            background: "rgba(255,255,255,0.05)",
-            borderRadius: "16px",
+            background: darkMode ? "rgba(51, 65, 85, 0.5)" : "rgba(255, 255, 255, 0.06)",
+            borderRadius: "14px",
             padding: "16px",
-            marginBottom: "18px"
+            marginBottom: "16px",
+            border: `1px solid ${t.sidebarBorder}`,
           }}
         >
           <div
@@ -117,7 +110,7 @@ function Sidebar({
               display: "flex",
               alignItems: "center",
               gap: "10px",
-              marginBottom: "8px"
+              marginBottom: "8px",
             }}
           >
             <FiHelpCircle />
@@ -127,8 +120,8 @@ function Sidebar({
           <p
             style={{
               margin: 0,
-              color: "#cbd5e1",
-              fontSize: "13px"
+              color: t.sidebarText,
+              fontSize: "13px",
             }}
           >
             Contact the administrator for support.
@@ -140,64 +133,64 @@ function Sidebar({
           style={{
             width: "100%",
             padding: "14px",
-            borderRadius: "14px",
+            borderRadius: "12px",
+            border: `1px solid ${t.border}`,
+            cursor: "pointer",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "10px",
+            marginBottom: "10px",
+            background: darkMode ? t.surfaceElevated : t.surface,
+            color: t.text,
+            fontWeight: "600",
+          }}
+        >
+          {darkMode ? <FiSun /> : <FiMoon />}
+          {darkMode ? "Light Mode" : "Dark Mode"}
+        </button>
+
+        <button
+          onClick={() => setPage("profile")}
+          style={{
+            width: "100%",
+            padding: "14px",
+            borderRadius: "12px",
             border: "none",
             cursor: "pointer",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             gap: "10px",
-            marginBottom: "12px",
-            background: darkMode ? "#f3f4f6" : "#1f2937",
-            color: darkMode ? "#111827" : "white",
-            fontWeight: "600"
+            background: page === "profile" ? t.accent : t.surfaceElevated,
+            color: page === "profile" ? t.textInverse : t.sidebarText,
+            fontWeight: "600",
+            marginBottom: "10px",
           }}
         >
-          {darkMode ? <FiSun /> : <FiMoon />}
-          {darkMode ? "Light Mode" : "Dark Mode"}
+          👤 Profile
         </button>
-<button
-  onClick={() => setPage("profile")}
-  style={{
-    width: "100%",
-    padding: "14px",
-    borderRadius: "14px",
-    border: "none",
-    cursor: "pointer",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: "10px",
-    background:
-      page === "profile" ? "#2563eb" : "#1f2937",
-    color: "white",
-    fontWeight: "600",
-    marginBottom: "10px",
-  }}
->
-  👤 Profile
-</button>
-       <button
-  onClick={handleLogout}
-  style={{
-    width: "100%",
-    padding: "14px",
-    borderRadius: "14px",
-    border: "none",
-    cursor: "pointer",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: "10px",
-    background: "#dc2626",
-    color: "white",
-    fontWeight: "600"
-  }}
->
-  <FiLogOut />
-  Logout
-</button>
 
+        <button
+          onClick={handleLogout}
+          style={{
+            width: "100%",
+            padding: "14px",
+            borderRadius: "12px",
+            border: "none",
+            cursor: "pointer",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "10px",
+            background: t.danger,
+            color: "#FFFFFF",
+            fontWeight: "600",
+          }}
+        >
+          <FiLogOut />
+          Logout
+        </button>
       </div>
     </div>
   )

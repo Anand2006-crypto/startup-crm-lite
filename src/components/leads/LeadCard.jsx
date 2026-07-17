@@ -1,4 +1,8 @@
-function LeadCard({ id, name, email, status, onDelete, onEdit }) {
+import { getTheme } from "../../theme/tokens"
+
+function LeadCard({ id, name, email, status, onDelete, onEdit, darkMode = true }) {
+  const t = getTheme(darkMode)
+
   function handleEdit() {
     const newStatus = prompt("Enter new status:", status)
 
@@ -10,23 +14,49 @@ function LeadCard({ id, name, email, status, onDelete, onEdit }) {
   return (
     <div
       style={{
-        border: "1px solid #ccc",
-        padding: "15px",
+        border: `1px solid ${t.border}`,
+        padding: "18px",
         margin: "20px",
-        borderRadius: "10px",
-        background: "white",
-color: "black"
-       }}
+        borderRadius: "12px",
+        background: t.surface,
+        color: t.text,
+        boxShadow: t.shadow,
+      }}
     >
-      <h3>{name}</h3>
-      <p>Email: {email}</p>
-      <p>Status: {status}</p>
+      <h3 style={{ color: t.text, margin: "0 0 8px" }}>{name}</h3>
+      <p style={{ color: t.textMuted }}>Email: {email}</p>
+      <p style={{ color: t.textMuted }}>Status: {status}</p>
 
-      <button onClick={handleEdit} style={{ marginRight: "10px" }}>
+      <button
+        onClick={handleEdit}
+        style={{
+          marginRight: "10px",
+          background: t.accent,
+          color: t.textInverse,
+          border: "none",
+          padding: "8px 14px",
+          borderRadius: "8px",
+          cursor: "pointer",
+          fontWeight: "600",
+        }}
+      >
         Edit
       </button>
 
-      <button onClick={onDelete}>Delete</button>
+      <button
+        onClick={onDelete}
+        style={{
+          background: t.danger,
+          color: "#FFFFFF",
+          border: "none",
+          padding: "8px 14px",
+          borderRadius: "8px",
+          cursor: "pointer",
+          fontWeight: "600",
+        }}
+      >
+        Delete
+      </button>
     </div>
   )
 }
