@@ -192,6 +192,7 @@ function Sidebar({
           Logout
         </button>
       </div>
+       
     </div>
   )
 }

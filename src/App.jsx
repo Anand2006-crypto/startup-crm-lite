@@ -321,16 +321,16 @@ const exportToExcel = () => {
 {page === "profile" && (
   <Profile darkMode={darkMode} />
 )}
-<div
+
+<footer
   style={{
     textAlign: "center",
-    padding: "15px",
-    color: t.textMuted,
-    fontSize: "14px",
+    padding: "20px",
+    color: "#94a3b8",
   }}
 >
-  © 2026 Startup CRM Lite | Developed by Anand
-</div>
+  © 2026 Startup CRM Lite • Developed by Anand
+</footer>
     </div>
   </div>
   
