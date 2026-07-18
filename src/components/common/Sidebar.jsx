@@ -1,4 +1,4 @@
-const [sidebarOpen, setSidebarOpen] = useState(false);
+
 import {
 
   FiGrid,
@@ -33,6 +33,7 @@ function Sidebar({
     boxShadow: page === menu ? t.sidebarActiveShadow : "none",
     transition: "all 0.25s ease",
   })
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <div
