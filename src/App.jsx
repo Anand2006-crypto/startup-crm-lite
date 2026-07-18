@@ -26,7 +26,7 @@ function App() {
   const [filter, setFilter] = useState("All")
   const [darkMode, setDarkMode] = useState(true)
   const [page, setPage] = useState("leads")
-  
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showForm, setShowForm] = useState(false)
   const [selectedLead, setSelectedLead] = useState(null)
  const [isLoggedIn, setIsLoggedIn] = useState(
@@ -129,6 +129,8 @@ const exportToExcel = () => {
   darkMode={darkMode}
   setDarkMode={setDarkMode}
   handleLogout={handleLogout}
+  sidebarOpen={sidebarOpen}
+  setSidebarOpen={setSidebarOpen}
 />
 
    <div
@@ -144,6 +146,8 @@ const exportToExcel = () => {
   page={page}
   darkMode={darkMode}
   setDarkMode={setDarkMode}
+  sidebarOpen={sidebarOpen}
+  setSidebarOpen={setSidebarOpen}
 />
 
 {page === "dashboard" && <Dashboard

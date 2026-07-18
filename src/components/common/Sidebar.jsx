@@ -15,8 +15,11 @@ function Sidebar({
   page,
   darkMode,
   setDarkMode,
-  handleLogout
+  handleLogout,
+  sidebarOpen,
+  setSidebarOpen
 }) {
+   
   const t = getTheme(darkMode)
 
   const menuStyle = (menu) => ({
@@ -32,22 +35,46 @@ function Sidebar({
     boxShadow: page === menu ? t.sidebarActiveShadow : "none",
     transition: "all 0.25s ease",
   })
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+ 
 
   return (
-    <div
-      style={{
-        width: "260px",
-        height: "100vh",
-        background: t.sidebarBg,
-        color: t.text,
-        padding: "24px",
-        display: "flex",
-        flexDirection: "column",
-        boxSizing: "border-box",
-        borderRight: `1px solid ${t.sidebarBorder}`,
-      }}
-    >
+  <div
+    style={{
+      width:
+        window.innerWidth <= 768
+          ? sidebarOpen
+            ? "260px"
+            : "0px"
+          : "260px",
+
+      overflow: "hidden",
+
+      height: "100vh",
+      background: t.sidebarBg,
+      color: t.text,
+      padding:
+        window.innerWidth <= 768
+          ? sidebarOpen
+            ? "24px"
+            : "0px"
+          : "24px",
+
+      display: "flex",
+      flexDirection: "column",
+      boxSizing: "border-box",
+      borderRight: `1px solid ${t.sidebarBorder}`,
+      transition: "all 0.3s ease",
+
+      position:
+        window.innerWidth <= 768
+          ? "fixed"
+          : "relative",
+
+      left: 0,
+      top: 0,
+      zIndex: 1000,
+    }}
+  >
       <div style={{ marginBottom: "36px" }}>
         <h2
           style={{
