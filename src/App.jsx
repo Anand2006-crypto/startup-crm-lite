@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useStste } from "react"
 import Navbar from "./components/common/Navbar"
 import Dashboard from "./components/dashboard/Dashboard"
 import LeadList from "./components/leads/LeadList"
@@ -25,8 +25,9 @@ function App() {
   const [search, setSearch] = useState("")
   const [filter, setFilter] = useState("All")
   const [darkMode, setDarkMode] = useState(true)
-  const [page, setPage] = useState("leads")
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [page, setPage] = useState("leads")
+  
   const [showForm, setShowForm] = useState(false)
   const [selectedLead, setSelectedLead] = useState(null)
  const [isLoggedIn, setIsLoggedIn] = useState(
@@ -123,15 +124,17 @@ const exportToExcel = () => {
 
  return (
   <div style={{ display: "flex" }}>
-   <Sidebar
-  setPage={setPage}
-  page={page}
-  darkMode={darkMode}
-  setDarkMode={setDarkMode}
-  handleLogout={handleLogout}
-  sidebarOpen={sidebarOpen}
-  setSidebarOpen={setSidebarOpen}
-/>
+   <div className="desktop-sidebar">
+  <Sidebar
+    setPage={setPage}
+    page={page}
+    darkMode={darkMode}
+    setDarkMode={setDarkMode}
+    handleLogout={handleLogout}
+    sidebarOpen={sidebarOpen}
+    setSidebarOpen={setSidebarOpen}
+  />
+</div>
 
    <div
   style={{
@@ -146,8 +149,6 @@ const exportToExcel = () => {
   page={page}
   darkMode={darkMode}
   setDarkMode={setDarkMode}
-  sidebarOpen={sidebarOpen}
-  setSidebarOpen={setSidebarOpen}
 />
 
 {page === "dashboard" && <Dashboard
@@ -325,7 +326,27 @@ const exportToExcel = () => {
 {page === "profile" && (
   <Profile darkMode={darkMode} />
 )}
+<div className="mobile-nav">
+  <button onClick={() => setPage("dashboard")}>
+    📊
+  </button>
 
+  <button onClick={() => setPage("leads")}>
+    👥
+  </button>
+
+  <button onClick={() => setPage("analytics")}>
+    📈
+  </button>
+
+  <button onClick={() => setDarkMode(!darkMode)}>
+    {darkMode ? "☀️" : "🌙"}
+  </button>
+
+  <button onClick={handleLogout}>
+    🚪
+  </button>
+</div>
 <footer
   style={{
     textAlign: "center",

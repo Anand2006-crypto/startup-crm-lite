@@ -7,13 +7,7 @@ import {
 } from "react-icons/fi"
 import { getTheme } from "../../theme/tokens"
 
-function Navbar({
-  page,
-  darkMode,
-  setDarkMode,
-  sidebarOpen,
-  setSidebarOpen
-}) {
+function Navbar({ page, darkMode, setDarkMode }) {
   const t = getTheme(darkMode)
 
   let title = ""
@@ -33,7 +27,6 @@ function Navbar({
     title = "Analytics Overview"
     subtitle = "Track sales performance and revenue"
   }
-  
 
   const iconBox = {
     width: "44px",
@@ -64,11 +57,6 @@ function Navbar({
         border: `1px solid ${t.border}`,
       }}
     >
-       <button
-  onClick={() => setSidebarOpen(!sidebarOpen)}
->
-  ☰
-</button>
       <div>
         <h2
           style={{
@@ -172,7 +160,6 @@ function Navbar({
           A
         </div>
       </div>
-     
     </div>
   )
 }
