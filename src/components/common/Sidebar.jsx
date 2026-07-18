@@ -1,4 +1,6 @@
+const [sidebarOpen, setSidebarOpen] = useState(false);
 import {
+
   FiGrid,
   FiUsers,
   FiBarChart2,

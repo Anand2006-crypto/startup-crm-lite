@@ -160,6 +160,9 @@ function Navbar({ page, darkMode, setDarkMode }) {
           A
         </div>
       </div>
+      <button onClick={() => setSidebarOpen(!sidebarOpen)}>
+  ☰
+</button>
     </div>
   )
 }
