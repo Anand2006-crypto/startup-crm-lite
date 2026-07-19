@@ -5,7 +5,8 @@ const API = axios.create({
 });
 
 // Get all leads
-export const getLeads = () => API.get("/leads");
+export const getLeads = (userId) =>
+  API.get(`/leads?userId=${userId}`);
 
 // Add lead
 export const addLead = (lead) => API.post("/leads", lead);
