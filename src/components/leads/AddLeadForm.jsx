@@ -16,14 +16,19 @@ function AddLeadForm({ onAdd, onClose, darkMode }) {
     return;
   }
 
-  const newLead = {
-    name,
-    company,
-    phone,
-    email,
-    source,
-    status,
-  };
+  const currentUser = JSON.parse(
+  localStorage.getItem("currentUser")
+);
+
+const newLead = {
+  name,
+  company,
+  phone,
+  email,
+  source,
+  status,
+  userId: currentUser?.id,
+};
 
   await onAdd(newLead);
 

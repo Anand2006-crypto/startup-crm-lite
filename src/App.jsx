@@ -1,4 +1,4 @@
-import { useEffect, useStste } from "react"
+import { useEffect } from "react"
 import Navbar from "./components/common/Navbar"
 import Dashboard from "./components/dashboard/Dashboard"
 import LeadList from "./components/leads/LeadList"
@@ -25,7 +25,6 @@ function App() {
   const [search, setSearch] = useState("")
   const [filter, setFilter] = useState("All")
   const [darkMode, setDarkMode] = useState(true)
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [page, setPage] = useState("leads")
   
   const [showForm, setShowForm] = useState(false)
@@ -84,13 +83,17 @@ useEffect(() => {
 
 async function loadLeads() {
   try {
+    const currentUser = JSON.parse(
+      localStorage.getItem("currentUser")
+    );
+
     const { data } = await getLeads();
 
-    console.log("API Response:", data);
+    const userLeads = data.filter(
+      (lead) => lead.userId === currentUser?.id
+    );
 
-    setLeads(data);
-
-    console.log("Loaded successfully");
+    setLeads(userLeads);
   } catch (error) {
     console.error(error);
   }
@@ -124,17 +127,13 @@ const exportToExcel = () => {
 
  return (
   <div style={{ display: "flex" }}>
-   <div className="desktop-sidebar">
-  <Sidebar
-    setPage={setPage}
-    page={page}
-    darkMode={darkMode}
-    setDarkMode={setDarkMode}
-    handleLogout={handleLogout}
-    sidebarOpen={sidebarOpen}
-    setSidebarOpen={setSidebarOpen}
-  />
-</div>
+   <Sidebar
+  setPage={setPage}
+  page={page}
+  darkMode={darkMode}
+  setDarkMode={setDarkMode}
+  handleLogout={handleLogout}
+/>
 
    <div
   style={{
@@ -326,27 +325,7 @@ const exportToExcel = () => {
 {page === "profile" && (
   <Profile darkMode={darkMode} />
 )}
-<div className="mobile-nav">
-  <button onClick={() => setPage("dashboard")}>
-    📊
-  </button>
 
-  <button onClick={() => setPage("leads")}>
-    👥
-  </button>
-
-  <button onClick={() => setPage("analytics")}>
-    📈
-  </button>
-
-  <button onClick={() => setDarkMode(!darkMode)}>
-    {darkMode ? "☀️" : "🌙"}
-  </button>
-
-  <button onClick={handleLogout}>
-    🚪
-  </button>
-</div>
 <footer
   style={{
     textAlign: "center",

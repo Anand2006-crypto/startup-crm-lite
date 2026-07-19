@@ -5,14 +5,15 @@ function Register({ setShowRegister }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const t = getTheme(true)
 
   const cardStyle = {
-    width: "380px",
+    width: "420px",
     background: t.surface,
     padding: "32px",
-    borderRadius: "16px",
+    borderRadius: "20px",
     boxShadow: t.shadowLg,
     border: `1px solid ${t.border}`,
   }
@@ -29,14 +30,20 @@ function Register({ setShowRegister }) {
   }
 
   const handleRegister = () => {
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-        name,
-        email,
-        password,
-      })
-    );
+    if (password !== confirmPassword) {
+  alert("Passwords do not match");
+  return;
+}
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+users.push({
+  id: Date.now(),
+  name,
+  email,
+  password,
+});
+
+localStorage.setItem("users", JSON.stringify(users));
 
     alert("Registration successful");
     setShowRegister(false);
@@ -45,24 +52,35 @@ function Register({ setShowRegister }) {
   return (
     <div
       style={{
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        background: t.loginGradient,
-      }}
+  minHeight: "100vh",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  background: "linear-gradient(135deg, #0f172a, #1e293b)",
+  padding: "20px",
+}}
     >
       <div style={cardStyle}>
         <h1
-          style={{
-            color: t.text,
-            textAlign: "center",
-            marginBottom: "24px",
-            fontSize: "28px",
-          }}
-        >
-          Register
-        </h1>
+  style={{
+    color: "#60a5fa",
+    textAlign: "center",
+    marginBottom: "10px",
+    fontSize: "32px",
+  }}
+>
+  🚀 Startup CRM Lite
+</h1>
+
+<p
+  style={{
+    color: "#94a3b8",
+    textAlign: "center",
+    marginBottom: "25px",
+  }}
+>
+  Create your account.
+</p>
 
         <input
           placeholder="Name"
@@ -83,6 +101,14 @@ function Register({ setShowRegister }) {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          style={{ ...inputStyle, marginBottom: "20px" }}
+        />
+
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
           style={{ ...inputStyle, marginBottom: "20px" }}
         />
 

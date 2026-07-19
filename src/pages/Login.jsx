@@ -11,10 +11,10 @@ function Login({ setIsLoggedIn }) {
   const t = getTheme(true)
 
   const cardStyle = {
-    width: "380px",
+  width: "420px",
     background: t.surface,
     padding: "32px",
-    borderRadius: "16px",
+    borderRadius: "20px",
     boxShadow: t.shadowLg,
     border: `1px solid ${t.border}`,
   }
@@ -51,14 +51,14 @@ function Login({ setIsLoggedIn }) {
     fontSize: "14px",
   }
 
-  const pageStyle = {
-    height: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    background: t.loginGradient,
-  }
-
+ const pageStyle = {
+  minHeight: "100vh",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  background: "linear-gradient(135deg, #0f172a, #1e293b)",
+  padding: "20px",
+}
 if (showRegister) {
   return (
     <Register setShowRegister={setShowRegister} />
@@ -112,15 +112,25 @@ if (showForgot) {
     <div style={pageStyle}>
       <div style={cardStyle}>
         <h1
-          style={{
-            color: t.text,
-            textAlign: "center",
-            marginBottom: "28px",
-            fontSize: "28px",
-          }}
-        >
-          Startup CRM Lite
-        </h1>
+  style={{
+    color: "#60a5fa",
+    textAlign: "center",
+    marginBottom: "10px",
+    fontSize: "32px",
+  }}
+>
+  🚀 Startup CRM Lite
+</h1>
+
+<p
+  style={{
+    color: "#94a3b8",
+    textAlign: "center",
+    marginBottom: "25px",
+  }}
+>
+  Welcome back! Login to continue.
+</p>
 
         <input
           type="email"
@@ -140,9 +150,15 @@ if (showForgot) {
 
         <button
   onClick={() => {
-  const user = JSON.parse(
-    localStorage.getItem("user")
-  );
+  const users = JSON.parse(
+  localStorage.getItem("users")
+) || [];
+
+const user = users.find(
+  (u) =>
+    u.email === email &&
+    u.password === password
+);
 
   if (
     user &&
@@ -150,6 +166,10 @@ if (showForgot) {
     password === user.password
   ) {
     localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem(
+  "currentUser",
+  JSON.stringify(user)
+);
     setIsLoggedIn(true);
   } else {
     alert("Invalid email or password");
@@ -171,6 +191,7 @@ if (showForgot) {
 >
   Create new account
 </p>
+
       </div>
     </div>
   );

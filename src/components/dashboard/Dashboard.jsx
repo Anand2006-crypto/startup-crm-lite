@@ -43,7 +43,10 @@ const revenue = wonDeals * 25000
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+          gridTemplateColumns:
+  window.innerWidth <= 768
+    ? "repeat(2, 1fr)"
+    : "repeat(auto-fit, minmax(220px, 1fr))",
           gap: "20px"
         }}
       >
