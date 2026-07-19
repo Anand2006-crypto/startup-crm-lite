@@ -346,20 +346,27 @@ const exportToExcel = () => {
 }
 {window.innerWidth <= 768 && isLoggedIn && (
   <div className="mobile-nav">
-    <button onClick={() => setPage("dashboard")}>🏠</button>
+    <button onClick={() => setPage("dashboard")}>
+      🏠
+    </button>
 
-    <button onClick={() => setPage("analytics")}>📊</button>
+    <button onClick={() => setPage("analytics")}>
+      📊
+    </button>
 
-    <button onClick={() => setPage("leads")}>👥</button>
+    <button onClick={() => setPage("leads")}>
+      👥
+    </button>
 
-    <button
-      onClick={() => setDarkMode(!darkMode)}
-    >
+    <button onClick={() => setDarkMode(!darkMode)}>
       {darkMode ? "☀️" : "🌙"}
     </button>
 
-    <button onClick={handleLogout}>🚪</button>
+    <button onClick={handleLogout}>
+      🚪
+    </button>
   </div>
 )}
+
 
 export default App
