@@ -172,10 +172,11 @@ const exportToExcel = () => {
   }}
 >
 
-     <Navbar
+    <Navbar
   page={page}
   darkMode={darkMode}
   setDarkMode={setDarkMode}
+  currentUser={JSON.parse(localStorage.getItem("currentUser"))}
 />
 
 {page === "dashboard" && <Dashboard

@@ -6,8 +6,9 @@ import {
   FiMoon
 } from "react-icons/fi"
 import { getTheme } from "../../theme/tokens"
+import { FiLogOut } from "react-icons/fi";
 
-function Navbar({ page, darkMode, setDarkMode }) {
+function Navbar({ page, darkMode, setDarkMode, currentUser }) {
   const t = getTheme(darkMode)
 
   let title = ""
@@ -45,10 +46,9 @@ function Navbar({ page, darkMode, setDarkMode }) {
   return (
     <div
       style={{
-        height: "78px",
-        background: t.navbarBg,
+height: window.innerWidth <= 768 ? "60px" : "78px",        background: t.navbarBg,
         borderRadius: "16px",
-        padding: "0 24px",
+        padding: window.innerWidth <= 768 ? "0 12px" : "0 24px",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
@@ -62,21 +62,23 @@ function Navbar({ page, darkMode, setDarkMode }) {
           style={{
             margin: 0,
             color: t.text,
-            fontSize: "20px",
+            fontSize: window.innerWidth <= 768 ? "15px" : "20px",
           }}
         >
           {title}
         </h2>
 
-        <p
-          style={{
-            margin: 0,
-            color: t.textMuted,
-            fontSize: "14px",
-          }}
-        >
-          {subtitle}
-        </p>
+        {window.innerWidth > 768 && (
+  <p
+    style={{
+      margin: 0,
+      color: t.textMuted,
+      fontSize: "14px",
+    }}
+  >
+    {subtitle}
+  </p>
+)}
       </div>
 
       <div
@@ -86,11 +88,12 @@ function Navbar({ page, darkMode, setDarkMode }) {
           gap: "14px",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            background: t.inputBg,
+        {window.innerWidth > 768 && (
+  <div
+    style={{
+      display: "flex",
+      alignItems: "center",
+      background: t.inputBg,
             padding: "10px 15px",
             borderRadius: "12px",
             width: "260px",
@@ -111,25 +114,30 @@ function Navbar({ page, darkMode, setDarkMode }) {
             }}
           />
         </div>
+        
+)
+}
 
-        <button
-          style={{
-            background: t.accent,
-            color: t.textInverse,
-            border: "none",
-            borderRadius: "12px",
-            padding: "12px 18px",
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-            cursor: "pointer",
-            fontWeight: "600",
-            boxShadow: t.shadow,
-          }}
-        >
-          <FiPlus />
-          New Lead
-        </button>
+        {window.innerWidth > 768 && (
+  <button
+    style={{
+      background: t.accent,
+      color: t.textInverse,
+      border: "none",
+      borderRadius: "12px",
+      padding: "12px 18px",
+      display: "flex",
+      alignItems: "center",
+      gap: "8px",
+      cursor: "pointer",
+      fontWeight: "600",
+      boxShadow: t.shadow,
+    }}
+  >
+    <FiPlus />
+    New Lead
+  </button>
+)}
 
         <div
           onClick={() => setDarkMode(!darkMode)}
@@ -141,6 +149,9 @@ function Navbar({ page, darkMode, setDarkMode }) {
         <div style={iconBox}>
           <FiBell />
         </div>
+        <div style={iconBox}>
+  <FiLogOut />
+</div>
 
         <div
           style={{
@@ -157,7 +168,7 @@ function Navbar({ page, darkMode, setDarkMode }) {
             boxShadow: t.shadow,
           }}
         >
-          A
+          {currentUser?.name?.charAt(0).toUpperCase()}
         </div>
       </div>
     </div>
