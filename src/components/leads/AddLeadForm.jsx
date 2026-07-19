@@ -72,7 +72,10 @@ const newLead = {
     >
       <div
         style={{
-          width: "500px",
+          width:
+  window.innerWidth <= 768
+    ? "95%"
+    : "500px",
           padding: "28px",
           borderRadius: "16px",
           background: t.surface,

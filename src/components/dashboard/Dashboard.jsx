@@ -20,6 +20,23 @@ function Dashboard({ leads, darkMode }) {
     : Math.round((wonDeals / totalLeads) * 100)
 
 const revenue = wonDeals * 25000
+if (leads.length === 0) {
+  return (
+    <div
+      style={{
+        textAlign: "center",
+        padding: "80px",
+        color: t.textMuted,
+      }}
+    >
+      <h1>📭</h1>
+
+      <h2>No leads yet</h2>
+
+      <p>Add your first lead to get started.</p>
+    </div>
+  );
+}
 
   return (
     <div style={{ padding: "10px" }}>
@@ -27,7 +44,10 @@ const revenue = wonDeals * 25000
         <h1
   style={{
     margin: 0,
-    fontSize: "48px",
+   fontSize:
+  window.innerWidth <= 768
+    ? "28px"
+    : "48px",
     fontWeight: "700",
     color: t.text
   }}
@@ -45,7 +65,7 @@ const revenue = wonDeals * 25000
           display: "grid",
           gridTemplateColumns:
   window.innerWidth <= 768
-    ? "1fr"
+    ? "repeat(2, 1fr)"
     : "repeat(auto-fit, minmax(220px, 1fr))",
           gap: "20px"
         }}

@@ -35,7 +35,10 @@ function Sidebar({
   return (
     <div className="desktop-sidebar"
       style={{
-        width: "260px",
+        width:
+  window.innerWidth <= 768
+    ? "80px"
+    : "260px",
         height: "100vh",
         background: t.sidebarBg,
         color: t.text,
@@ -75,7 +78,9 @@ function Sidebar({
           style={menuStyle("dashboard")}
         >
           <FiGrid size={20} />
-          <span>Dashboard</span>
+          {window.innerWidth > 768 && (
+  <span>Dashboard</span>
+)}
         </div>
 
         <div
@@ -83,7 +88,9 @@ function Sidebar({
           style={menuStyle("leads")}
         >
           <FiUsers size={20} />
-          <span>Leads</span>
+          {window.innerWidth > 768 && (
+  <span>Leads</span>
+)}
         </div>
 
         <div
@@ -91,7 +98,9 @@ function Sidebar({
           style={menuStyle("analytics")}
         >
           <FiBarChart2 size={20} />
-          <span>Analytics</span>
+          {window.innerWidth > 768 && (
+  <span>Analytics</span>
+)}
         </div>
       </div>
 
@@ -114,18 +123,22 @@ function Sidebar({
             }}
           >
             <FiHelpCircle />
-            <strong>Need Help?</strong>
+           {window.innerWidth > 768 && (
+  <strong>Need Help?</strong>
+)}
           </div>
 
-          <p
-            style={{
-              margin: 0,
-              color: t.sidebarText,
-              fontSize: "13px",
-            }}
-          >
-            Contact the administrator for support.
-          </p>
+         {window.innerWidth > 768 && (
+  <p
+    style={{
+      margin: 0,
+      color: t.sidebarText,
+      fontSize: "13px",
+    }}
+  >
+    Contact the administrator for support.
+  </p>
+)}
         </div>
 
         <button
@@ -147,7 +160,8 @@ function Sidebar({
           }}
         >
           {darkMode ? <FiSun /> : <FiMoon />}
-          {darkMode ? "Light Mode" : "Dark Mode"}
+          {window.innerWidth > 768 &&
+  (darkMode ? "Light Mode" : "Dark Mode")}
         </button>
 
         <button
@@ -168,7 +182,7 @@ function Sidebar({
             marginBottom: "10px",
           }}
         >
-          👤 Profile
+          👤 {window.innerWidth > 768 && "Profile"}
         </button>
 
         <button
@@ -188,8 +202,8 @@ function Sidebar({
             fontWeight: "600",
           }}
         >
-          <FiLogOut />
-          Logout
+         <FiLogOut />
+{window.innerWidth > 768 && "Logout"}
         </button>
       </div>
        
