@@ -31,6 +31,23 @@ import { getTheme } from "../../theme/tokens"
 
 function Analytics({ leads, darkMode }) {
   const t = getTheme(darkMode)
+  if (leads.length === 0) {
+  return (
+    <div
+      style={{
+        padding: "50px",
+        textAlign: "center",
+        color: t.textMuted,
+      }}
+    >
+      <h1>📊</h1>
+
+      <h2>No analytics available</h2>
+
+      <p>Add some leads to see charts and reports.</p>
+    </div>
+  );
+}
   const [range, setRange] = useState("30")
   const [fromDate, setFromDate] = useState("")
   const [toDate, setToDate] = useState("")
