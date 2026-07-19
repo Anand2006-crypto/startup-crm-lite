@@ -19,6 +19,13 @@ import {
   updateLead as updateLeadAPI,
   deleteLead as deleteLeadAPI,
 } from "./api/leadApi";
+import {
+  FiHome,
+  FiUsers,
+  FiBarChart2,
+  FiSettings
+} from "react-icons/fi";
+
 
 function App() {
   const [leads, setLeads] = useState([]);
@@ -139,6 +146,9 @@ const exportToExcel = () => {
     width: "100%",
     overflowX: "hidden",
   }}
+  style={{
+  overflowX: "hidden",
+}}
 >  {window.innerWidth > 768 && (
     <Sidebar
       setPage={setPage}
@@ -157,7 +167,7 @@ const exportToExcel = () => {
     background: t.background,
     color: t.text,
     minHeight: "100vh",
-    padding: window.innerWidth <= 768 ? "8px" : "28px",
+    padding: window.innerWidth <= 768 ? "px" : "28px",
     paddingBottom: window.innerWidth <= 768 ? "90px" : "28px",
   }}
 >
@@ -183,34 +193,36 @@ const exportToExcel = () => {
    margin: "0 20px 20px 20px"
   }}
 >
- <div
-  style={{
-    marginTop: "40px",
-    marginBottom: "40px"
-  }}
->
-  <h1
-  style={{
-    margin: 0,
-    fontSize: window.innerWidth <= 768 ? "32px" : "50px",
-      fontWeight: "700",
-      color: t.text,
-      lineHeight: "1.1"
-    }}
-  >
-    Lead Management
-  </h1>
-
-  <p
+ {window.innerWidth > 768 && (
+  <div
     style={{
-      marginTop: "12px",
-      color: t.textMuted,
-      fontSize: "16px"
+      marginTop: "40px",
+      marginBottom: "40px"
     }}
   >
-    Manage and track all your sales leads
-  </p>
-</div>
+    <h1
+      style={{
+        margin: 0,
+        fontSize: "50px",
+        fontWeight: "700",
+        color: t.text,
+        lineHeight: "1.1"
+      }}
+    >
+      Lead Management
+    </h1>
+
+    <p
+      style={{
+        marginTop: "12px",
+        color: t.textMuted,
+        fontSize: "16px"
+      }}
+    >
+      Manage and track all your sales leads
+    </p>
+  </div>
+)}
   <div style={{ marginTop: "60px" }}></div>
 
   <button
@@ -359,79 +371,117 @@ boxSizing: "border-box",
     
     {window.innerWidth <= 768 && (
   <div
-    style={{
-      position: "fixed",
-      bottom: "15px",
-      left: "50%",
-      transform: "translateX(-50%)",
-      width: "90%",
-      height: "65px",
-      background: "#0f172a",
-      borderRadius: "20px",
-      display: "flex",
-      justifyContent: "space-around",
-      alignItems: "center",
-      boxShadow: "0 10px 30px rgba(0,0,0,0.4)",
-      zIndex: 999,
-    }}
-  >
+  style={{
+    position: "fixed",
+    bottom: "12px",
+    left: "50%",
+    transform: "translateX(-50%)",
+    width: "92%",
+    height: "72px",
+    background: t.surface,
+    borderRadius: "20px",
+    display: "flex",
+    justifyContent: "space-around",
+    alignItems: "center",
+    boxShadow: "0 4px 20px rgba(0,0,0,0.15)",
+    border: `1px solid ${t.border}`,
+    zIndex: 999,
+  }}
+>
     <button
   onClick={() => setPage("dashboard")}
   style={{
-    background: page === "dashboard" ? "#1e293b" : "transparent",
+    background: "transparent",
     border: "none",
-    color: "#fff",
-    fontSize: "26px",
-    borderRadius: "12px",
-    padding: "10px",
+    cursor: "pointer",
   }}
 >
-  🏠
+  <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      gap: "4px",
+      color: page === "dashboard" ? "#2563eb" : "#94a3b8",
+    }}
+  >
+    <span style={{ fontSize: "22px" }}>🏠</span>
+    <span style={{ fontSize: "12px" }}>Home</span>
+  </div>
 </button>
 
 <button
   onClick={() => setPage("leads")}
   style={{
-    background: page === "leads" ? "#1e293b" : "transparent",
+    background: "transparent",
     border: "none",
-    color: "#fff",
-    fontSize: "26px",
-    borderRadius: "12px",
-    padding: "10px",
+    cursor: "pointer",
   }}
 >
-  👥
+  <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      gap: "4px",
+      color: page === "leads" ? "#2563eb" : "#94a3b8",
+    }}
+  >
+    <span style={{ fontSize: "22px" }}>👥</span>
+    <span style={{ fontSize: "12px" }}>Leads</span>
+  </div>
 </button>
 
 <button
   onClick={() => setPage("analytics")}
   style={{
-    background: page === "analytics" ? "#1e293b" : "transparent",
+    background: "transparent",
     border: "none",
-    color: "#fff",
-    fontSize: "26px",
-    borderRadius: "12px",
-    padding: "10px",
+    cursor: "pointer",
   }}
 >
-  📊
+  <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      gap: "4px",
+      color: page === "analytics" ? "#2563eb" : "#94a3b8",
+    }}
+  >
+    <span style={{ fontSize: "22px" }}>📊</span>
+    <span style={{ fontSize: "12px" }}>Charts</span>
+  </div>
 </button>
 
 <button
   onClick={() => setPage("profile")}
   style={{
-    background: page === "profile" ? "#1e293b" : "transparent",
+    background: "transparent",
     border: "none",
-    color: "#fff",
-    fontSize: "26px",
-    borderRadius: "12px",
-    padding: "10px",
+    cursor: "pointer",
   }}
 >
-  ⚙️
+  <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      gap: "4px",
+      color: page === "profile" ? "#2563eb" : "#94a3b8",
+    }}
+  >
+    <span style={{ fontSize: "22px" }}>⚙️</span>
+    <span style={{ fontSize: "12px" }}>Settings</span>
+  </div>
 </button>
   </div>
+  
 )}
+<FiHome />
+<FiUsers />
+<FiBarChart2 />
+<FiSettings />
     </div>
 
        );

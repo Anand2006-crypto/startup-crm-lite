@@ -231,7 +231,7 @@ function Card({ title, value, color, icon }) {
       style={{
         background: color,
         color: "#FFFFFF",
-        padding: "22px",
+        padding: window.innerWidth <= 768 ? "18px" : "22px",
         borderRadius: "16px",
         display: "flex",
         justifyContent: "space-between",
