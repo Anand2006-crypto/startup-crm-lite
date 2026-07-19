@@ -26,6 +26,9 @@ function App() {
   const [filter, setFilter] = useState("All")
   const [darkMode, setDarkMode] = useState(true)
   const [page, setPage] = useState("leads")
+  useEffect(() => {
+  window.scrollTo(0, 0);
+}, [page]);
   
   const [showForm, setShowForm] = useState(false)
   const [selectedLead, setSelectedLead] = useState(null)
