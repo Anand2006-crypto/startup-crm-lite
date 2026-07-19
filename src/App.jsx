@@ -60,10 +60,16 @@ function App() {
 
   async function addLead(newLead) {
   try {
-   const { data } = await addLeadAPI(newLead);
-    setLeads((prev) => [...prev, data]);
+    console.log("Sending:", newLead);
+
+    const response = await addLeadAPI(newLead);
+
+    console.log("API Response:", response);
+
+    setLeads((prev) => [...prev, response.data]);
+
   } catch (error) {
-    console.error(error);
+    console.error("Add Lead Error:", error.response?.data || error.message);
   }
 }
   async function editLead(id, newStatus) {
@@ -139,17 +145,14 @@ const exportToExcel = () => {
   saveAs(file, "leads.xlsx");
 };
 
- return (
+return (
 <div
   style={{
     display: "flex",
     width: "100%",
     overflowX: "hidden",
   }}
-  style={{
-  overflowX: "hidden",
-}}
->  {window.innerWidth > 768 && (
+> {window.innerWidth > 768 && (
     <Sidebar
       setPage={setPage}
       page={page}
@@ -164,6 +167,7 @@ const exportToExcel = () => {
    <div
   style={{
     flex: 1,
+    marginLeft: window.innerWidth > 768 ? "260px" : "0px",
     background: t.background,
     color: t.text,
     minHeight: "100vh",

@@ -33,13 +33,15 @@ function Sidebar({
   })
 
   return (
-    <div className="desktop-sidebar"
-      style={{
-        width:
-  window.innerWidth <= 768
-    ? "80px"
-    : "260px",
-        height: "100vh",
+   <div
+  className="desktop-sidebar"
+  style={{
+    width: window.innerWidth <= 768 ? "80px" : "260px",
+    height: "100vh",
+    position: window.innerWidth > 768 ? "fixed" : "relative",
+    left: 0,
+    top: 0,
+    flexShrink: 0,
         background: t.sidebarBg,
         color: t.text,
         padding: "24px",

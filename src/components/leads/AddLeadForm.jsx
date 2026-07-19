@@ -30,7 +30,11 @@ const newLead = {
   userId: currentUser?.id,
 };
 
-  await onAdd(newLead);
+  console.log("New Lead:", newLead);
+
+await onAdd(newLead);
+
+console.log("Lead added");
 
   setName("");
   setCompany("");
