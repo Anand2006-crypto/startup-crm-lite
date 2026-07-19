@@ -41,6 +41,10 @@ function App() {
 
  const handleLogout = () => {
   localStorage.removeItem("isLoggedIn");
+  localStorage.removeItem("currentUser");
+
+  setLeads([]);   // Add this line
+
   setIsLoggedIn(false);
 };
 

@@ -171,6 +171,7 @@ const user = users.find(
   JSON.stringify(user)
 );
     setIsLoggedIn(true);
+    window.location.reload();
   } else {
     alert("Invalid email or password");
   }
