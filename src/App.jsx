@@ -368,13 +368,61 @@ const exportToExcel = () => {
       zIndex: 999,
     }}
   >
-    <button onClick={() => setPage("dashboard")}>🏠</button>
+    <button
+  onClick={() => setPage("dashboard")}
+  style={{
+    background: page === "dashboard" ? "#1e293b" : "transparent",
+    border: "none",
+    color: "#fff",
+    fontSize: "26px",
+    borderRadius: "12px",
+    padding: "10px",
+  }}
+>
+  🏠
+</button>
 
-    <button onClick={() => setPage("leads")}>👥</button>
+<button
+  onClick={() => setPage("leads")}
+  style={{
+    background: page === "leads" ? "#1e293b" : "transparent",
+    border: "none",
+    color: "#fff",
+    fontSize: "26px",
+    borderRadius: "12px",
+    padding: "10px",
+  }}
+>
+  👥
+</button>
 
-    <button onClick={() => setPage("analytics")}>📊</button>
+<button
+  onClick={() => setPage("analytics")}
+  style={{
+    background: page === "analytics" ? "#1e293b" : "transparent",
+    border: "none",
+    color: "#fff",
+    fontSize: "26px",
+    borderRadius: "12px",
+    padding: "10px",
+  }}
+>
+  📊
+</button>
 
-    <button onClick={() => setPage("profile")}>⚙️</button>
+<button
+  onClick={() => setPage("profile")}
+  style={{
+    background: page === "profile" ? "#1e293b" : "transparent",
+    border: "none",
+    color: "#fff",
+    fontSize: "26px",
+    borderRadius: "12px",
+    padding: "10px",
+  }}
+>
+  ⚙️
+</button>
   </div>
 )}
     </div>
