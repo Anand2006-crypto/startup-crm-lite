@@ -133,16 +133,18 @@ const exportToExcel = () => {
 };
 
  return (
-  <div style={{ display: "flex" }}>
-   {window.innerWidth > 768 && (
-  <Sidebar
-    setPage={setPage}
-    page={page}
-    darkMode={darkMode}
-    setDarkMode={setDarkMode}
-    handleLogout={handleLogout}
-  />
-)}
+  <div style={{ display: "flex" }}> 
+  {window.innerWidth > 768 && (
+    <Sidebar
+      setPage={setPage}
+      page={page}
+      darkMode={darkMode}
+      setDarkMode={setDarkMode}
+      handleLogout={handleLogout}
+    />
+  )}
+
+  
 
    <div
   style={{
@@ -347,6 +349,7 @@ const exportToExcel = () => {
   © 2026 Startup CRM Lite • Developed by Anand
 </footer>
     </div>
+    
     {window.innerWidth <= 768 && (
   <div
     style={{
@@ -365,72 +368,18 @@ const exportToExcel = () => {
       zIndex: 999,
     }}
   >
-    <button
-      onClick={() => setPage("dashboard")}
-      style={{
-        background: "none",
-        border: "none",
-        color: "white",
-        fontSize: "24px",
-      }}
-    >
-      🏠
-    </button>
+    <button onClick={() => setPage("dashboard")}>🏠</button>
 
-    <button
-      onClick={() => setPage("leads")}
-      style={{
-        background: "none",
-        border: "none",
-        color: "white",
-        fontSize: "24px",
-      }}
-    >
-      👥
-    </button>
+    <button onClick={() => setPage("leads")}>👥</button>
 
-    <button
-      onClick={() => setPage("analytics")}
-      style={{
-        background: "none",
-        border: "none",
-        color: "white",
-        fontSize: "24px",
-      }}
-    >
-      📊
-    </button>
+    <button onClick={() => setPage("analytics")}>📊</button>
 
-    <button
-      onClick={() => setPage("profile")}
-      style={{
-        background: "none",
-        border: "none",
-        color: "white",
-        fontSize: "24px",
-      }}
-    >
-      👤
-    </button>
-
-    <button
-      onClick={handleLogout}
-      style={{
-        background: "none",
-        border: "none",
-        color: "#ef4444",
-        fontSize: "24px",
-      }}
-    >
-      🚪
-    </button>
+    <button onClick={() => setPage("profile")}>⚙️</button>
   </div>
 )}
-  </div>
-  
-);
+    </div>
+
+       );
 }
 
-
-
-export default App
+export default App;
