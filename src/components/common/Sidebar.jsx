@@ -33,7 +33,7 @@ function Sidebar({
   })
 
   return (
-    <div
+    <div className="desktop-sidebar"
       style={{
         width: "260px",
         height: "100vh",
