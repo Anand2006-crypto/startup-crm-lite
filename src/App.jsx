@@ -133,8 +133,13 @@ const exportToExcel = () => {
 };
 
  return (
-  <div style={{ display: "flex" }}> 
-  {window.innerWidth > 768 && (
+<div
+  style={{
+    display: "flex",
+    width: "100%",
+    overflowX: "hidden",
+  }}
+>  {window.innerWidth > 768 && (
     <Sidebar
       setPage={setPage}
       page={page}
@@ -185,9 +190,9 @@ const exportToExcel = () => {
   }}
 >
   <h1
-    style={{
-      margin: 0,
-      fontSize: "50px",
+  style={{
+    margin: 0,
+    fontSize: window.innerWidth <= 768 ? "32px" : "50px",
       fontWeight: "700",
       color: t.text,
       lineHeight: "1.1"

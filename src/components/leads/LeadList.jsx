@@ -67,9 +67,15 @@ const exportToExcel = () => {
         border: `1px solid ${t.border}`
       }}
     >
-      <table
-        style={{
-          width: "100%",
+      <div
+  style={{
+    overflowX: "auto",
+    width: "100%",
+  }}
+>
+  <table
+    style={{
+      width: "100%",
           borderCollapse: "collapse"
         }}
       >
@@ -206,8 +212,12 @@ const exportToExcel = () => {
         )}
       </tbody>
       </table>
+      
     </div>
+    
+</div>
   )
 }
+
 
 export default LeadList
