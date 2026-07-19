@@ -58,9 +58,12 @@ const exportToExcel = () => {
 };
   return (
     <div
-      style={{
-        margin: "20px",
-        overflowX: "auto",
+  style={{
+    margin: window.innerWidth <= 768 ? "10px" : "20px",
+    overflowX: "auto",
+    width: "100%",
+    maxWidth: "100vw",
+    boxSizing: "border-box",
         background: t.surfaceElevated,
         borderRadius: "16px",
         boxShadow: t.shadow,
@@ -74,11 +77,12 @@ const exportToExcel = () => {
   }}
 >
   <table
-    style={{
-      width: "100%",
-          borderCollapse: "collapse"
-        }}
-      >
+  style={{
+    minWidth: "900px",
+    width: "100%",
+    borderCollapse: "collapse"
+  }}
+>
         <thead>
           <tr
             style={{
