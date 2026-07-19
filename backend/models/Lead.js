@@ -58,6 +58,10 @@ const leadSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    userId: {
+  type: Number,
+  required: true,
+},
   },
   {
     timestamps: true,
