@@ -131,13 +131,15 @@ const exportToExcel = () => {
 
  return (
   <div style={{ display: "flex" }}>
-   <Sidebar
-  setPage={setPage}
-  page={page}
-  darkMode={darkMode}
-  setDarkMode={setDarkMode}
-  handleLogout={handleLogout}
-/>
+   {window.innerWidth > 768 && (
+  <Sidebar
+    setPage={setPage}
+    page={page}
+    darkMode={darkMode}
+    setDarkMode={setDarkMode}
+    handleLogout={handleLogout}
+  />
+)}
 
    <div
   style={{
@@ -145,9 +147,11 @@ const exportToExcel = () => {
     background: t.background,
     color: t.text,
     minHeight: "100vh",
-    padding: "28px",
+    padding: window.innerWidth <= 768 ? "16px" : "28px",
+    paddingBottom: window.innerWidth <= 768 ? "90px" : "28px",
   }}
 >
+
      <Navbar
   page={page}
   darkMode={darkMode}
@@ -340,6 +344,39 @@ const exportToExcel = () => {
   © 2026 Startup CRM Lite • Developed by Anand
 </footer>
     </div>
+    {window.innerWidth <= 768 && (
+  <div
+    style={{
+      position: "fixed",
+      bottom: 0,
+      left: 0,
+      width: "100%",
+      height: "70px",
+      background: "#111827",
+      display: "flex",
+      justifyContent: "space-around",
+      alignItems: "center",
+      color: "white",
+      zIndex: 999,
+    }}
+  >
+    <button onClick={() => setPage("dashboard")}>
+      Dashboard
+    </button>
+
+    <button onClick={() => setPage("leads")}>
+      Leads
+    </button>
+
+    <button onClick={() => setPage("analytics")}>
+      Analytics
+    </button>
+
+    <button onClick={() => setPage("profile")}>
+      Profile
+    </button>
+  </div>
+)}
   </div>
   
 );
