@@ -230,6 +230,7 @@ const exportToExcel = () => {
   style={{
     margin: "20px",
     display: "flex",
+    flexDirection: window.innerWidth <= 768 ? "column" : "row",
     alignItems: "center",
     gap: "12px",
   }}
@@ -241,7 +242,8 @@ const exportToExcel = () => {
     onChange={(e) => setSearch(e.target.value)}
     style={{
       padding: "14px 18px",
-      width: "420px",
+     width: window.innerWidth <= 768 ? "100%" : "420px",
+boxSizing: "border-box",
       borderRadius: "12px",
       border: `1px solid ${t.border}`,
       outline: "none",
