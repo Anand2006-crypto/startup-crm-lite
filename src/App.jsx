@@ -351,32 +351,78 @@ const exportToExcel = () => {
   <div
     style={{
       position: "fixed",
-      bottom: 0,
-      left: 0,
-      width: "100%",
-      height: "70px",
-      background: "#111827",
+      bottom: "15px",
+      left: "50%",
+      transform: "translateX(-50%)",
+      width: "90%",
+      height: "65px",
+      background: "#0f172a",
+      borderRadius: "20px",
       display: "flex",
       justifyContent: "space-around",
       alignItems: "center",
-      color: "white",
+      boxShadow: "0 10px 30px rgba(0,0,0,0.4)",
       zIndex: 999,
     }}
   >
-    <button onClick={() => setPage("dashboard")}>
-      Dashboard
+    <button
+      onClick={() => setPage("dashboard")}
+      style={{
+        background: "none",
+        border: "none",
+        color: "white",
+        fontSize: "24px",
+      }}
+    >
+      🏠
     </button>
 
-    <button onClick={() => setPage("leads")}>
-      Leads
+    <button
+      onClick={() => setPage("leads")}
+      style={{
+        background: "none",
+        border: "none",
+        color: "white",
+        fontSize: "24px",
+      }}
+    >
+      👥
     </button>
 
-    <button onClick={() => setPage("analytics")}>
-      Analytics
+    <button
+      onClick={() => setPage("analytics")}
+      style={{
+        background: "none",
+        border: "none",
+        color: "white",
+        fontSize: "24px",
+      }}
+    >
+      📊
     </button>
 
-    <button onClick={() => setPage("profile")}>
-      Profile
+    <button
+      onClick={() => setPage("profile")}
+      style={{
+        background: "none",
+        border: "none",
+        color: "white",
+        fontSize: "24px",
+      }}
+    >
+      👤
+    </button>
+
+    <button
+      onClick={handleLogout}
+      style={{
+        background: "none",
+        border: "none",
+        color: "#ef4444",
+        fontSize: "24px",
+      }}
+    >
+      🚪
     </button>
   </div>
 )}
