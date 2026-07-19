@@ -91,23 +91,27 @@ const exportToExcel = () => {
             <th style={{ padding: "16px" }}>Actions</th>
           </tr>
         </thead>
-             {filteredLeads.length === 0 && (
-  <div
-    style={{
-      textAlign: "center",
-      padding: "60px",
-      color: t.textMuted,
-    }}
-  >
-    <h1>👥</h1>
+             
+       <tbody>
+  {filteredLeads.length === 0 ? (
+    <tr>
+      <td
+        colSpan="8"
+        style={{
+          textAlign: "center",
+          padding: "60px",
+          color: t.textMuted,
+        }}
+      >
+        <h1>👥</h1>
 
-    <h2>No leads found</h2>
+        <h2>No leads found</h2>
 
-    <p>Click "Add Lead" to create your first lead.</p>
-  </div>
-)}
-        <tbody>
-          {filteredLeads.map((lead) => (
+        <p>Click "Add Lead" to create your first lead.</p>
+      </td>
+    </tr>
+  ) : (
+    filteredLeads.map((lead) => (
             <tr
               key={lead._id}
               style={{
@@ -198,8 +202,9 @@ const exportToExcel = () => {
                 </button>
               </td>
             </tr>
-          ))}
-        </tbody>
+                   ))
+        )}
+      </tbody>
       </table>
     </div>
   )
