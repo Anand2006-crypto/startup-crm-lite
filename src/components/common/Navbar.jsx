@@ -8,7 +8,15 @@ import {
 import { getTheme } from "../../theme/tokens"
 import { FiLogOut } from "react-icons/fi";
 
-function Navbar({ page, darkMode, setDarkMode, currentUser }) {
+
+
+function Navbar({
+  page,
+  darkMode,
+  setDarkMode,
+  handleLogout,
+  currentUser,
+}) {
   const t = getTheme(darkMode)
 
   let title = ""
@@ -149,7 +157,20 @@ height: window.innerWidth <= 768 ? "60px" : "78px",        background: t.navbarB
         <div style={iconBox}>
           <FiBell />
         </div>
-        <div style={iconBox}>
+        <div
+  onClick={handleLogout}
+  style={{
+    width: "45px",
+    height: "45px",
+    borderRadius: "50%",
+    background: "#ef4444",
+    color: "white",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    cursor: "pointer"
+  }}
+>
   <FiLogOut />
 </div>
 

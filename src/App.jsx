@@ -171,7 +171,7 @@ return (
     background: t.background,
     color: t.text,
     minHeight: "100vh",
-    padding: window.innerWidth <= 768 ? "px" : "28px",
+    padding: window.innerWidth <= 768 ? "16px" : "28px",
     paddingBottom: window.innerWidth <= 768 ? "90px" : "28px",
   }}
 >
@@ -181,6 +181,7 @@ return (
   darkMode={darkMode}
   setDarkMode={setDarkMode}
   currentUser={JSON.parse(localStorage.getItem("currentUser"))}
+  handleLogout={handleLogout}
 />
 
 {page === "dashboard" && <Dashboard
