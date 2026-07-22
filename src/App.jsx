@@ -484,10 +484,7 @@ boxSizing: "border-box",
   </div>
   
 )}
-<FiHome />
-<FiUsers />
-<FiBarChart2 />
-<FiSettings />
+
     </div>
 
        );
