@@ -58,36 +58,37 @@ height: window.innerWidth <= 768 ? "60px" : "78px",        background: t.navbarB
         borderRadius: "16px",
         padding: window.innerWidth <= 768 ? "0 12px" : "0 24px",
         display: "flex",
-        justifyContent: "space-between",
+        justifyContent:
+  window.innerWidth <= 768 ? "flex-end" : "space-between",
         alignItems: "center",
         boxShadow: t.shadowMd,
         marginBottom: "20px",
         border: `1px solid ${t.border}`,
       }}
     >
-      <div>
-        <h2
-          style={{
-            margin: 0,
-            color: t.text,
-            fontSize: window.innerWidth <= 768 ? "15px" : "20px",
-          }}
-        >
-          {title}
-        </h2>
+      {window.innerWidth > 768 && (
+  <div>
+    <h2
+      style={{
+        margin: 0,
+        color: t.text,
+        fontSize: "20px",
+      }}
+    >
+      {title}
+    </h2>
 
-        {window.innerWidth > 768 && (
-  <p
-    style={{
-      margin: 0,
-      color: t.textMuted,
-      fontSize: "14px",
-    }}
-  >
-    {subtitle}
-  </p>
+    <p
+      style={{
+        margin: 0,
+        color: t.textMuted,
+        fontSize: "14px",
+      }}
+    >
+      {subtitle}
+    </p>
+  </div>
 )}
-      </div>
 
       <div
         style={{

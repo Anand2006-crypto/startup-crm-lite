@@ -65,7 +65,7 @@ if (leads.length === 0) {
           display: "grid",
           gridTemplateColumns:
   window.innerWidth <= 768
-    ? "repeat(2, 1fr)"
+    ? "1fr"
     : "repeat(auto-fit, minmax(220px, 1fr))",
           gap: "20px"
         }}
