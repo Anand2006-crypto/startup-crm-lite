@@ -66,29 +66,29 @@ height: window.innerWidth <= 768 ? "60px" : "78px",        background: t.navbarB
         border: `1px solid ${t.border}`,
       }}
     >
-      {window.innerWidth > 768 && (
-  <div>
-    <h2
-      style={{
-        margin: 0,
-        color: t.text,
-        fontSize: "20px",
-      }}
-    >
-      {title}
-    </h2>
+      <div>
+        <h2
+          style={{
+            margin: 0,
+            color: t.text,
+            fontSize: window.innerWidth <= 768 ? "15px" : "20px",
+          }}
+        >
+          {title}
+        </h2>
 
-    <p
-      style={{
-        margin: 0,
-        color: t.textMuted,
-        fontSize: "14px",
-      }}
-    >
-      {subtitle}
-    </p>
-  </div>
+        {window.innerWidth > 768 && (
+  <p
+    style={{
+      margin: 0,
+      color: t.textMuted,
+      fontSize: "14px",
+    }}
+  >
+    {subtitle}
+  </p>
 )}
+      </div>
 
       <div
         style={{
