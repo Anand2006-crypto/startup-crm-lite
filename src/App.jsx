@@ -173,9 +173,11 @@ return (
     padding: window.innerWidth <= 768 ? "12px" : "28px",
     paddingBottom: window.innerWidth <= 768 ? "90px" : "28px",
     overflowX: "hidden",
-    width: "100%",
-    maxWidth: "100vw",
     boxSizing: "border-box",
+    ...(window.innerWidth <= 768 && {
+      width: "100%",
+      maxWidth: "100vw",
+    }),
   }}
 >
 
