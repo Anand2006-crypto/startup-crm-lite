@@ -471,8 +471,12 @@ const goalProgress = Math.min(
      <div
   style={{
     display: "grid",
-    gridTemplateColumns: "repeat(2, 1fr)",
-    gap: "12px"
+    gridTemplateColumns:
+      window.innerWidth <= 768
+        ? "1fr"
+        : "repeat(2,1fr)",
+    gap: "20px",
+    width: "100%",
   }}
 >
   
