@@ -30,7 +30,9 @@ const [profileImage, setProfileImage] = useState(
   return (
   <div
     style={{
-      padding: "60px",
+     padding: window.innerWidth <= 768 ? "20px" : "60px",
+boxSizing: "border-box",
+width: "100%",
       color: t.text,
     }}
   >
@@ -38,12 +40,20 @@ const [profileImage, setProfileImage] = useState(
       <h1
   style={{
     color: t.text,
-    fontSize: "32px",
+    fontSize: window.innerWidth <= 768 ? "26px" : "32px",
+textAlign: "center",
     marginBottom: "24px",
   }}
 >
   👤 My Profile
 </h1>
+  <div
+  style={{
+    display: "flex",
+    justifyContent: "center",
+    marginBottom: "15px",
+  }}
+>
   <img
    src={profileImage}
     alt="Profile"
@@ -55,6 +65,7 @@ const [profileImage, setProfileImage] = useState(
       boxShadow: t.shadowMd,
     }}
   />
+  </div>
  <input
   type="file"
   accept="image/*"
@@ -78,6 +89,8 @@ const [profileImage, setProfileImage] = useState(
   }}
   style={{
   marginTop: "15px",
+  width: "100%",
+  maxWidth: "350px",
   color: t.text,
   background: t.surface,
   padding: "10px",
@@ -89,15 +102,25 @@ const [profileImage, setProfileImage] = useState(
 
       <div
   style={{
+    display: "flex",
+    justifyContent: "center",
     marginTop: "24px",
-    background: t.surface,
-    padding: "28px",
-    borderRadius: "16px",
-    width: "420px",
-    border: `1px solid ${t.border}`,
-    boxShadow: t.shadow,
   }}
 >
+  <div
+    style={{
+      background: t.surface,
+      padding: window.innerWidth <= 768 ? "18px" : "28px",
+      borderRadius: "16px",
+      width: "100%",
+      maxWidth: "420px",
+      boxSizing: "border-box",
+      border: `1px solid ${t.border}`,
+      boxShadow: t.shadow,
+    }}
+>
+    
+  
         <input
   type="text"
  value={name}
@@ -146,6 +169,7 @@ onChange={(e) => setPassword(e.target.value)}
 >
   Save Changes
 </button>  
+    </div>
     </div>
     </div>
  );
