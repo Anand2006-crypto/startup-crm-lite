@@ -16,6 +16,7 @@ function Navbar({
   setDarkMode,
   handleLogout,
   currentUser,
+  isMobile,
 }) {
   const t = getTheme(darkMode)
 
@@ -54,12 +55,12 @@ function Navbar({
   return (
     <div
       style={{
-height: window.innerWidth <= 768 ? "60px" : "78px",        background: t.navbarBg,
+height: isMobile? "60px" : "78px",        background: t.navbarBg,
         borderRadius: "16px",
-        padding: window.innerWidth <= 768 ? "0 12px" : "0 24px",
+        padding: isMobile ? "0 12px" : "0 24px",
         display: "flex",
         justifyContent:
-  window.innerWidth <= 768 ? "flex-end" : "space-between",
+  isMobile ? "flex-end" : "space-between",
         alignItems: "center",
         boxShadow: t.shadowMd,
         marginBottom: "20px",
@@ -71,13 +72,13 @@ height: window.innerWidth <= 768 ? "60px" : "78px",        background: t.navbarB
           style={{
             margin: 0,
             color: t.text,
-            fontSize: window.innerWidth <= 768 ? "15px" : "20px",
+            fontSize: isMobile ? "15px" : "20px",
           }}
         >
           {title}
         </h2>
 
-        {window.innerWidth > 768 && (
+        {!isMobile && (
   <p
     style={{
       margin: 0,
@@ -97,7 +98,7 @@ height: window.innerWidth <= 768 ? "60px" : "78px",        background: t.navbarB
           gap: "14px",
         }}
       >
-        {window.innerWidth > 768 && (
+        {!isMobile && (
   <div
     style={{
       display: "flex",
@@ -127,7 +128,7 @@ height: window.innerWidth <= 768 ? "60px" : "78px",        background: t.navbarB
 )
 }
 
-        {window.innerWidth > 768 && (
+        {!isMobile && (
   <button
     style={{
       background: t.accent,

@@ -9,7 +9,8 @@ function LeadList({
   onEdit,
   onDelete,
   onView,
-  darkMode
+  darkMode,
+  isMobile
 }) {
   const t = getTheme(darkMode)
 
@@ -59,7 +60,7 @@ const exportToExcel = () => {
   return (
     <div
   style={{
-    margin: window.innerWidth <= 768 ? "10px" : "20px",
+    margin: isMobile? "10px" : "20px",
     overflowX: "auto",
     width: "100%",
     maxWidth: "100vw",

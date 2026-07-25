@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect } from "react";
 import Navbar from "./components/common/Navbar"
 import Dashboard from "./components/dashboard/Dashboard"
 import LeadList from "./components/leads/LeadList"
@@ -33,10 +33,19 @@ function App() {
   const [filter, setFilter] = useState("All")
   const [darkMode, setDarkMode] = useState(true)
   const [page, setPage] = useState("leads")
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   useEffect(() => {
   window.scrollTo(0, 0);
 }, [page]);
-  
+  useEffect(() => {
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= 768);
+  };
+
+  window.addEventListener("resize", handleResize);
+
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
   const [showForm, setShowForm] = useState(false)
   const [selectedLead, setSelectedLead] = useState(null)
  const [isLoggedIn, setIsLoggedIn] = useState(
@@ -144,7 +153,7 @@ const exportToExcel = () => {
 
   saveAs(file, "leads.xlsx");
 };
-
+const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 return (
 <div
   style={{
@@ -152,13 +161,14 @@ return (
     width: "100%",
     overflowX: "hidden",
   }}
-> {window.innerWidth > 768 && (
+> {!isMobile && (
     <Sidebar
       setPage={setPage}
       page={page}
       darkMode={darkMode}
       setDarkMode={setDarkMode}
       handleLogout={handleLogout}
+      isMobile={isMobile}
     />
   )}
 
@@ -167,15 +177,16 @@ return (
    <div
   style={{
     flex: 1,
+    marginLeft: isMobile ? "0" : "260px", // Leave space for fixed sidebar
+    width: isMobile ? "100%" : "calc(100% - 260px)",
     background: t.background,
     color: t.text,
     minHeight: "100vh",
-    padding: window.innerWidth <= 768 ? "12px" : "28px",
-    paddingBottom: window.innerWidth <= 768 ? "90px" : "28px",
+    padding: isMobile ? "12px" : "28px",
+    paddingBottom: isMobile ? "90px" : "28px",
     overflowX: "hidden",
     boxSizing: "border-box",
-    ...(window.innerWidth <= 768 && {
-      width: "100%",
+    ...(isMobile && {
       maxWidth: "100vw",
     }),
   }}
@@ -185,8 +196,9 @@ return (
   page={page}
   darkMode={darkMode}
   setDarkMode={setDarkMode}
-  currentUser={JSON.parse(localStorage.getItem("currentUser"))}
   handleLogout={handleLogout}
+  currentUser={currentUser}
+  isMobile={isMobile}
 />
 
 {page === "dashboard" && <Dashboard
@@ -204,7 +216,7 @@ return (
    margin: "0 20px 20px 20px"
   }}
 >
- {window.innerWidth > 768 && (
+ {!isMobile && (
   <div
     style={{
       marginTop: "40px",
@@ -258,7 +270,7 @@ return (
   style={{
     margin: "20px",
     display: "flex",
-    flexDirection: window.innerWidth <= 768 ? "column" : "row",
+    flexDirection: isMobile ? "column" : "row",
     alignItems: "center",
     gap: "12px",
   }}
@@ -270,7 +282,7 @@ return (
     onChange={(e) => setSearch(e.target.value)}
     style={{
       padding: "14px 18px",
-     width: window.innerWidth <= 768 ? "100%" : "420px",
+     width: isMobile ? "100%" : "420px",
 boxSizing: "border-box",
       borderRadius: "12px",
       border: `1px solid ${t.border}`,
@@ -350,6 +362,7 @@ boxSizing: "border-box",
   onDelete={deleteLead}
   onView={setSelectedLead}
   darkMode={darkMode}
+  isMobile={isMobile}
 />
 {selectedLead && (
   <LeadDetails
@@ -380,7 +393,7 @@ boxSizing: "border-box",
 </footer>
     </div>
     
-    {window.innerWidth <= 768 && (
+    {isMobile && (
   <div
   style={{
     position: "fixed",

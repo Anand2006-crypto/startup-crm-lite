@@ -14,7 +14,8 @@ function Sidebar({
   page,
   darkMode,
   setDarkMode,
-  handleLogout
+  handleLogout,
+  isMobile,
 }) {
   const t = getTheme(darkMode)
 
@@ -36,9 +37,9 @@ function Sidebar({
    <div
   className="desktop-sidebar"
   style={{
-    width: window.innerWidth <= 768 ? "80px" : "260px",
+    width: isMobile ? "80px" : "260px",
     height: "100vh",
-    position: window.innerWidth > 768 ? "fixed" : "relative",
+    position: !isMobile ? "fixed" : "relative",
     left: 0,
     top: 0,
     flexShrink: 0,
@@ -80,7 +81,7 @@ function Sidebar({
           style={menuStyle("dashboard")}
         >
           <FiGrid size={20} />
-          {window.innerWidth > 768 && (
+          {!isMobile && (
   <span>Dashboard</span>
 )}
         </div>
@@ -90,7 +91,7 @@ function Sidebar({
           style={menuStyle("leads")}
         >
           <FiUsers size={20} />
-          {window.innerWidth > 768 && (
+          {!isMobile && (
   <span>Leads</span>
 )}
         </div>
@@ -100,7 +101,7 @@ function Sidebar({
           style={menuStyle("analytics")}
         >
           <FiBarChart2 size={20} />
-          {window.innerWidth > 768 && (
+          {!isMobile && (
   <span>Analytics</span>
 )}
         </div>
@@ -125,12 +126,12 @@ function Sidebar({
             }}
           >
             <FiHelpCircle />
-           {window.innerWidth > 768 && (
+           {!isMobile && (
   <strong>Need Help?</strong>
 )}
           </div>
 
-         {window.innerWidth > 768 && (
+         {!isMobile && (
   <p
     style={{
       margin: 0,
@@ -162,7 +163,7 @@ function Sidebar({
           }}
         >
           {darkMode ? <FiSun /> : <FiMoon />}
-          {window.innerWidth > 768 &&
+          {!isMobile &&
   (darkMode ? "Light Mode" : "Dark Mode")}
         </button>
 
@@ -184,7 +185,7 @@ function Sidebar({
             marginBottom: "10px",
           }}
         >
-          👤 {window.innerWidth > 768 && "Profile"}
+          👤 {!isMobile && "Profile"}
         </button>
 
         <button
@@ -205,7 +206,7 @@ function Sidebar({
           }}
         >
          <FiLogOut />
-{window.innerWidth > 768 && "Logout"}
+{!isMobile && "Logout"}
         </button>
       </div>
        
