@@ -389,7 +389,7 @@ boxSizing: "border-box",
     color: "#94a3b8",
   }}
 >
-  © 2026 Startup CRM Lite • Developed by Anand
+  © 2026 Startup CRM Lite • Developed by Rudra Pratap
 </footer>
     </div>
     

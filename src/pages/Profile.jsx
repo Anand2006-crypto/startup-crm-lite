@@ -4,8 +4,8 @@ import { getTheme } from "../theme/tokens";
 
 function Profile({ darkMode }) {
   const user = JSON.parse(
-    localStorage.getItem("user")
-  );
+  localStorage.getItem("currentUser")
+);
   const [name, setName] = useState(user?.name || "");
 const [email, setEmail] = useState(user?.email || "");
 const [password, setPassword] = useState(user?.password || "");
@@ -145,7 +145,7 @@ onChange={(e) => setPassword(e.target.value)}
 <button
   onClick={() => {
     localStorage.setItem(
-      "user",
+      "currentUser",
       JSON.stringify({
         name,
         email,
