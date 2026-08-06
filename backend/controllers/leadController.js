@@ -3,7 +3,12 @@ import Lead from "../models/Lead.js";
 // Get all leads
 export const getLeads = async (req, res) => {
   try {
-    const leads = await Lead.find().sort({ createdAt: -1 });
+    const userId = req.query.userId;
+
+    const leads = await Lead.find({
+      userId,
+    }).sort({ createdAt: -1 });
+
     res.status(200).json(leads);
   } catch (error) {
     res.status(500).json({ message: error.message });

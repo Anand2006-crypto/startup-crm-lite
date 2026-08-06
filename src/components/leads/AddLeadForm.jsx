@@ -2,6 +2,7 @@ import { useState } from "react"
 import { getTheme } from "../../theme/tokens"
 
 function AddLeadForm({ onAdd, onClose, darkMode }) {
+  const isMobile = window.innerWidth <= 768;
   const t = getTheme(darkMode)
   const [name, setName] = useState("")
   const [company, setCompany] = useState("")
@@ -77,7 +78,7 @@ console.log("Lead added");
       <div
         style={{
           width:
-  window.innerWidth <= 768
+  isMobile
     ? "95%"
     : "500px",
           padding: "28px",

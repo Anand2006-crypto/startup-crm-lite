@@ -8,6 +8,7 @@ import { getTheme, getStatusStyle } from "../../theme/tokens"
 
 function Dashboard({ leads, darkMode }) {
   const t = getTheme(darkMode)
+  const isMobile = window.innerWidth <= 768;
   const totalLeads = leads.length
 
   const wonDeals = leads.filter(
@@ -45,7 +46,7 @@ if (leads.length === 0) {
   style={{
     margin: 0,
    fontSize:
-  window.innerWidth <= 768
+  isMobile
     ? "28px"
     : "48px",
     fontWeight: "700",
@@ -64,7 +65,7 @@ if (leads.length === 0) {
         style={{
           display: "grid",
           gridTemplateColumns:
-  window.innerWidth <= 768
+  isMobile
     ? "1fr"
     : "repeat(auto-fit, minmax(220px, 1fr))",
           gap: "20px"
@@ -226,12 +227,13 @@ if (leads.length === 0) {
 }
 
 function Card({ title, value, color, icon }) {
+  const isMobile = window.innerWidth <= 768;
   return (
     <div
       style={{
         background: color,
         color: "#FFFFFF",
-        padding: window.innerWidth <= 768 ? "18px" : "22px",
+        padding: isMobile ? "18px" : "22px",
         borderRadius: "16px",
         display: "flex",
         justifyContent: "space-between",
