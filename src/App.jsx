@@ -69,16 +69,27 @@ function App() {
 
   async function addLead(newLead) {
   try {
-    console.log("Sending:", newLead);
+    console.log("Sending lead:", newLead);
 
     const response = await addLeadAPI(newLead);
 
-    console.log("API Response:", response);
+    console.log("API Response:", response.data);
 
     setLeads((prev) => [...prev, response.data]);
 
+    return response.data;
   } catch (error) {
-    console.error("Add Lead Error:", error.response?.data || error.message);
+    console.error(
+      "Add Lead Error:",
+      error.response?.data || error.message
+    );
+
+    alert(
+      error.response?.data?.message ||
+      "Failed to add lead. Please try again."
+    );
+
+    throw error;
   }
 }
   async function editLead(id, newStatus) {
@@ -116,18 +127,27 @@ async function loadLeads() {
       localStorage.getItem("currentUser")
     );
 
-    const { data } = await getLeads();
+    console.log("Current user:", currentUser);
 
-    const userLeads = data.filter(
-      (lead) => lead.userId === currentUser?.id
-    );
+    const userId = currentUser?.id || currentUser?._id;
 
-    setLeads(userLeads);
+    if (!userId) {
+      console.error("No user ID found");
+      return;
+    }
+
+    const { data } = await getLeads(userId);
+
+    console.log("Leads from API:", data);
+
+    setLeads(data);
   } catch (error) {
-    console.error(error);
+    console.error(
+      "Load Leads Error:",
+      error.response?.data || error.message
+    );
   }
 }
-
 if (!isLoggedIn) {
  return <Login setIsLoggedIn={setIsLoggedIn} />;
 }
