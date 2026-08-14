@@ -11,6 +11,13 @@ dotenv.config();
 connectDB();
 
 const app = express();
+const cors = require("cors");
+
+app.use(cors({
+  origin: "https://startup-crm-lite-silk.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
 
 const corsOptions = {
   origin: [
