@@ -4,27 +4,20 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import leadRoutes from "./routes/leadRoutes.js";
 
-
 dotenv.config();
 
 // Connect to MongoDB
 connectDB();
 
 const app = express();
-const cors = require("cors");
-
-app.use(cors({
-  origin: "https://startup-crm-lite-silk.vercel.app",
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-}));
 
 const corsOptions = {
   origin: [
     "http://localhost:5173",
     "https://startup-crm-lite-silk.vercel.app",
   ],
-  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 app.use(cors(corsOptions));
@@ -32,13 +25,13 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use("/api/leads", leadRoutes);
+
 app.get("/api/health", (req, res) => {
   res.json({
     success: true,
     message: "Server is running",
   });
 });
-
 
 app.get("/", (req, res) => {
   res.send("🚀 Startup CRM Backend is Running");
